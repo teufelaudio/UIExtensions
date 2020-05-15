@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "FoundationExtensions",
+        "repositoryURL": "https://github.com/teufelaudio/FoundationExtensions",
+        "state": {
+          "branch": "master",
+          "revision": "1269e4513829a519ac39bf54b939c12559f4075b",
+          "version": null
+        }
+      },
+      {
+        "package": "Lottie",
+        "repositoryURL": "https://github.com/airbnb/lottie-ios",
+        "state": {
+          "branch": null,
+          "revision": "4e5877425dae5c10792fc9d22d53dc6bf6824dc1",
+          "version": "3.1.8"
+        }
+      },
+      {
+        "package": "SwiftRex",
+        "repositoryURL": "https://github.com/SwiftRex/SwiftRex",
+        "state": {
+          "branch": "master",
+          "revision": "0c71b2d677141a3f165320fccb16e1f711aba58d",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
