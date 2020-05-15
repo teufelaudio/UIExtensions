@@ -10,7 +10,6 @@
 import Foundation
 import Lottie
 import SwiftUI
-import Theme
 
 public struct LottieView: UIViewRepresentable {
     let animationView = AnimationView()
@@ -19,7 +18,7 @@ public struct LottieView: UIViewRepresentable {
     let loopMode: LottieLoopMode
     let completion: LottieCompletionBlock?
 
-    private init(filename: String, bundle: Bundle, loopMode: LottieLoopMode = .playOnce, completion: LottieCompletionBlock? = nil) {
+    public init(filename: String, bundle: Bundle, loopMode: LottieLoopMode = .playOnce, completion: LottieCompletionBlock? = nil) {
         self.filename = filename
         self.bundle = bundle
         self.loopMode = loopMode

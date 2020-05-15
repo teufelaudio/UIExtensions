@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "UIExtensions",
     platforms: [
-        .macOS(SupportedPlatform.MacOSVersion.v10_15),
+//        .macOS(SupportedPlatform.MacOSVersion.v10_15),
         .iOS(SupportedPlatform.IOSVersion.v13),
 //        .tvOS(SupportedPlatform.TVOSVersion.v13),
 //        .watchOS(SupportedPlatform.WatchOSVersion.v6)
@@ -22,7 +22,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         .package(name: "SwiftRex", url: "https://github.com/SwiftRex/SwiftRex", .branch("master")),
         .package(url: "https://github.com/teufelaudio/FoundationExtensions", .branch("master")),
-        .package(name: "Lottie", url: "https://github.com/airbnb/lottie-ios", .branch("lottie/macos-spm")),
+        .package(name: "Lottie", url: "https://github.com/airbnb/lottie-ios", from: "3.1.8"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

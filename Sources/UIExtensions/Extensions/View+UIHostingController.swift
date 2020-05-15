@@ -6,6 +6,9 @@
 //
 
 #if canImport(UIKit)
+import SwiftUI
+import UIKit
+
 extension View {
     /// Returns an `UIHostingController` with this view set as rootView.
     public var hosted: UIHostingController<Self> {
