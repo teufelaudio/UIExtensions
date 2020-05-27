@@ -14,6 +14,8 @@ import UIKit
 /// Paging Scroll View adapted from
 ///  <https://github.com/izakpavel/SwiftUIPagingScrollView/blob/master/SwiftUIPagingScrollView/PagingScrollView.swift>
 /// Currently supports horizontal paging only.
+@available(iOS 13.0, OSX 10.15, watchOS 6.0, *)
+@available(tvOS, unavailable)
 public struct PagingScrollView<DataCollection: RandomAccessCollection, PageType: View>: View where DataCollection.Element: Identifiable {
 
     /// Creates a horizontal paging scrollView.
@@ -117,6 +119,8 @@ public struct PagingScrollView<DataCollection: RandomAccessCollection, PageType:
 }
 
 // MARK: - Private Layout Helpers
+@available(iOS 13.0, OSX 10.15, watchOS 6.0, *)
+@available(tvOS, unavailable)
 extension PagingScrollView {
     /// Calculates the offset for the given page index.
     /// - Parameters:
