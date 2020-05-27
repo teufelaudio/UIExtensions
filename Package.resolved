@@ -12,11 +12,11 @@
       },
       {
         "package": "SwiftRex",
-        "repositoryURL": "https://github.com/SwiftRex/SwiftRex",
+        "repositoryURL": "https://github.com/SwiftRex/SwiftRex.git",
         "state": {
-          "branch": "master",
-          "revision": "0c71b2d677141a3f165320fccb16e1f711aba58d",
-          "version": null
+          "branch": null,
+          "revision": "b90766264edc92f60dc55b2a5e48d57efca6fbcb",
+          "version": "0.7.1"
         }
       }
     ]
