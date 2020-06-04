@@ -3,11 +3,11 @@
     "pins": [
       {
         "package": "FoundationExtensions",
-        "repositoryURL": "https://github.com/teufelaudio/FoundationExtensions",
+        "repositoryURL": "https://github.com/teufelaudio/FoundationExtensions.git",
         "state": {
-          "branch": "master",
-          "revision": "1269e4513829a519ac39bf54b939c12559f4075b",
-          "version": null
+          "branch": null,
+          "revision": "58347b6e8ad3fc5ef0d51dd0c4f0433f9c4f3cc5",
+          "version": "0.1.0"
         }
       },
       {
