@@ -11,10 +11,16 @@ import Foundation
 import SwiftRex
 import SwiftUI
 
+public enum ChangeModifier {
+    case animated
+    case notAnimated
+}
+
 extension Binding {
     public static func store<Action, State>(
         _ store: ObservableViewModel<Action, State>,
         state: KeyPath<State, Value>,
+        changeModifier: ChangeModifier = .notAnimated,
         file: String = #file,
         function: String = #function,
         line: UInt = #line,
@@ -24,6 +30,7 @@ extension Binding {
         Binding.store(
             store,
             stateMap: { $0[keyPath: state] },
+            changeModifier: changeModifier,
             file: file,
             function: function,
             line: line,
@@ -35,6 +42,7 @@ extension Binding {
     public static func store<Action, State>(
         _ store: ObservableViewModel<Action, State>,
         stateMap: @escaping (State) -> Value,
+        changeModifier: ChangeModifier = .notAnimated,
         file: String = #file,
         function: String = #function,
         line: UInt = #line,
@@ -46,7 +54,15 @@ extension Binding {
             set: { newValue in
                 // Allow to not dispatch any action.
                 guard let action = onChange(newValue) else { return }
-                store.dispatch(action, from: .init(file: file, function: function, line: line, info: info))
+                let dispatch = {
+                    store.dispatch(action, from: .init(file: file, function: function, line: line, info: info))
+                }
+                switch changeModifier {
+                case .animated:
+                    withAnimation { dispatch() }
+                case .notAnimated:
+                    dispatch()
+                }
         })
     }
 
