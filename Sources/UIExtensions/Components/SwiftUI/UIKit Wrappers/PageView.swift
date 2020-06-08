@@ -123,10 +123,10 @@ where DataCollection.Element: Identifiable, DataCollection: Equatable {
                         return nil
                     }
 
-                    guard let index = self.items.firstIndex(where: { $0.id == hostingController.id }),
-                        index > self.items.startIndex else { return nil }
+                    guard let index = self.items.firstIndex(where: { $0.id == hostingController.id }) else { return nil }
 
                     let previousIndex = self.items.index(before: index)
+                    guard previousIndex >= self.items.startIndex && previousIndex < self.items.endIndex else { return nil }
                     return self.viewController(at: previousIndex)
                 },
                 pageAfter: { [weak self] viewController in
@@ -135,10 +135,10 @@ where DataCollection.Element: Identifiable, DataCollection: Equatable {
                         return nil
                     }
 
-                    guard let index = self.items.firstIndex(where: { $0.id == hostingController.id }),
-                        index > self.items.startIndex else { return nil }
+                    guard let index = self.items.firstIndex(where: { $0.id == hostingController.id }) else { return nil }
 
                     let nextIndex = self.items.index(after: index)
+                    guard nextIndex >= self.items.startIndex && nextIndex < self.items.endIndex else { return nil }
                     return self.viewController(at: nextIndex)
                 },
                 didFinishAnimating: { [weak self] pageViewController, finished, previousViewControllers, completed in
@@ -211,4 +211,5 @@ private class IdentifiableHostingController<ID: Hashable, Content: View>: UIHost
         fatalError("init(coder:) has not been implemented")
     }
 }
+
 #endif
