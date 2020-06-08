@@ -211,3 +211,4 @@ private class IdentifiableHostingController<ID: Hashable, Content: View>: UIHost
         fatalError("init(coder:) has not been implemented")
     }
 }
+#endif
