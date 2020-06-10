@@ -67,7 +67,10 @@ where DataCollection.Element: Identifiable, DataCollection: Equatable {
 
         // Configure the `UIPageViewController` initially once.
         pageViewController.setViewControllers(
-            [context.coordinator.viewController(for: context.coordinator.items[safe: activePageIndex] ?? context.coordinator.items.last)],
+            [
+                context.coordinator.viewController(for: context.coordinator.items[safe: activePageIndex]
+                    ?? context.coordinator.items.last)
+            ].compactMap(identity),
             direction: .forward,
             animated: false
         )
@@ -88,8 +91,9 @@ where DataCollection.Element: Identifiable, DataCollection: Equatable {
         }
 
         context.coordinator.items = receivedItems
+        context.coordinator.parent = self
 
-        let formerIndex = context.coordinator.lastKnownSelectedIndex ?? context.coordinator.items.endIndex
+        let formerIndex = context.coordinator.lastKnownSelectedIndex
 
         let element = context.coordinator.items[safe: activePageIndex] ?? context.coordinator.items.last
 
@@ -97,11 +101,13 @@ where DataCollection.Element: Identifiable, DataCollection: Equatable {
             ? .forward
             : .reverse
 
-        let animated = activePageIndex != formerIndex || activePageIndex >= context.coordinator.items.endIndex
+        let animated =
+            (activePageIndex != formerIndex || activePageIndex >= context.coordinator.items.endIndex)
+                && !context.transaction.disablesAnimations && context.transaction.animation != nil
 
         context.coordinator.lastKnownSelectedIndex = activePageIndex
 
-        pageViewController.setViewControllers([context.coordinator.viewController(for: element)],
+        pageViewController.setViewControllers([context.coordinator.viewController(for: element)].compactMap(identity),
                                               direction: direction,
                                               animated: animated)
     }
@@ -113,17 +119,16 @@ extension PageView {
     /// The coordinator is created once. We pass in the current view (`self`)
     /// to let the coordinator copy the view's configuration. `PageView.updateUIViewController`
     /// is called once the view struct is recreated. It is responsible for updating the `UIPageViewController`
-    /// of the new configuration, the `PageView` also needs to update this `Coordinator` in
-    /// based on the current configuration of the NEWLY CREATED `PageView`. To keep track
-    /// `updateUIViewController`.
+    /// of the new configuration, the `PageView` also needs to update this `PageViewCoordinator` in
+    /// based on the current configuration of the NEWLY CREATED `PageView`.
     public final class PageViewCoordinator {
-        private let parent: PageView
+        fileprivate var parent: PageView
 
         // This is the source-of-truth for collection of items.
         fileprivate var items: DataCollection
 
         // Cached element that is being presented.
-        var lastKnownSelectedIndex: DataCollection.Index?
+        var lastKnownSelectedIndex: DataCollection.Index
 
         fileprivate lazy var pageDataSource: PageControllerDataSource = {
             PageControllerDataSource(
@@ -146,7 +151,7 @@ extension PageView {
         init(
             parent: PageView,
             items: DataCollection,
-            initialIndex: DataCollection.Index?
+            initialIndex: DataCollection.Index
         ) {
             self.parent = parent
             self.items = items
@@ -177,8 +182,8 @@ extension PageView {
             return self.viewController(for: items[safe: nextIndex])
         }
 
-        func viewController(for element: DataCollection.Element?) -> UIViewController {
-            guard let element = element else { return UIViewController() }
+        func viewController(for element: DataCollection.Element?) -> UIViewController? {
+            guard let element = element else { return nil }
             return IdentifiableHostingController(id: element.id, content: parent.content(element))
         }
     }

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Lautsprecher Teufel GmbH. All rights reserved.
 //
 
+#if canImport(UIKit)
 import SwiftUI
 import UIKit
 
@@ -40,6 +41,7 @@ public struct PageControlView: UIViewRepresentable {
 
     public func updateUIView(_ uiView: UIPageControl, context: Context) {
         // Update our view and then add/remove the target
+        context.coordinator.control = self
         uiView.numberOfPages = numberOfPages
         uiView.currentPage = currentPage
     }
@@ -51,7 +53,7 @@ public struct PageControlView: UIViewRepresentable {
     /// Coordinator for this PageIndicator. Used only to update the source binding when a user taps on a
     /// page "dot" itself.
     public class Coordinator: NSObject {
-        private var control: PageControlView
+        fileprivate var control: PageControlView
 
         init(_ control: PageControlView) {
             self.control = control
@@ -59,7 +61,9 @@ public struct PageControlView: UIViewRepresentable {
         }
 
         @objc func updateCurrentPage(sender: UIPageControl) {
-            control.currentPage = sender.currentPage
+            withAnimation {
+                control.currentPage = sender.currentPage
+            }
         }
     }
 }
@@ -83,3 +87,4 @@ extension PageControlView {
         )
     }
 }
+#endif
