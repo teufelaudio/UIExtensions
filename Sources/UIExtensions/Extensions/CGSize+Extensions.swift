@@ -9,8 +9,8 @@
 import CoreGraphics
 
 extension CGSize {
-    /// Returns a `CGSize`with both parts set to `greatestFiniteMagnitude`.
+    /// Returns a `CGSize` with both parts set to `greatestFiniteMagnitude`.
     public static var greatestFiniteMagnitude: CGSize {
-        .init(width: CGFloat.greatestFiniteMagnitude, height: .greatestFiniteMagnitude)
+        .init(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
     }
 }
