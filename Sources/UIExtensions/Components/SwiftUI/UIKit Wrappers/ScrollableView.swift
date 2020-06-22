@@ -85,15 +85,23 @@ public final class UIScrollViewController<Content: View>: UIViewController, UISc
     }
 
     func updateScrollviewContentSize() {
-        var contentSize: CGSize = self.hostingController.view.intrinsicContentSize
-
+        // We need to determine the contentSize of the scrollview.
+        // First, create a bounding size. This is done by taking the scrollView's
+        // size and replacing one part, depending on scrollview axis, with
+        // greatestFiniteMagnitude.
+        var boundingSize = self.scrollView.frame.size
         switch axis {
         case .vertical:
-            contentSize.width = self.scrollView.frame.width
+            boundingSize.height = .greatestFiniteMagnitude
         case .horizontal:
-            contentSize.height = self.scrollView.frame.height
+            boundingSize.width = .greatestFiniteMagnitude
         }
 
+        // This allows the contentView to accurately calculate how much space
+        // in the axis' dimension it needs.
+        let contentSize = self.hostingController.view.sizeThatFits(boundingSize)
+
+        // This is then used as contentSize for the ScrollView.
         self.hostingController.view.frame.size = contentSize
         self.scrollView.contentSize = contentSize
     }
@@ -138,3 +146,4 @@ public final class UIScrollViewController<Content: View>: UIViewController, UISc
     }
 }
 #endif
+
