@@ -61,7 +61,9 @@ public struct PagingScrollView<DataCollection: RandomAccessCollection, PageType:
     private let scrollDampingFactor: CGFloat = 1
 
     /// Current offset of all items
-    @State var currentScrollOffset: CGFloat = 0
+    private func currentScrollOffset(proxy: GeometryProxy) -> CGFloat {
+        self.offsetForPageIndex(self.activePageIndex, proxy: proxy) + self.dragOffset
+    }
 
     /// Drag offset during drag gesture
     @State private var dragOffset: CGFloat = 0
@@ -72,25 +74,18 @@ public struct PagingScrollView<DataCollection: RandomAccessCollection, PageType:
                 /// building items into HStack
                 ForEach(self.items) { element in
                     self.content(element)
-                        .offset(x: self.currentScrollOffset, y: 0)
+                        .offset(x: self.currentScrollOffset(proxy: outerProxy), y: 0)
                         .frame(width: self.tileWidth(for: outerProxy))
                 }
-            }
-            .onAppear {
-                self.currentScrollOffset = self.offsetForPageIndex(self.activePageIndex, proxy: outerProxy)
             }
             .offset(x: self.stackOffset(for: outerProxy), y: 0)
             .background(Color.black.opacity(0.00001)) // hack - this allows gesture recognizing even when background is transparent
             .frame(width: self.contentWidth(for: outerProxy))
-            .onReceive(NotificationCenter.default.publisher(for: UIDevice.orientationDidChangeNotification), perform: { (_) in
-                self.currentScrollOffset = self.computeCurrentScrollOffset(for: outerProxy)
-            })
             .gesture(
                 DragGesture(minimumDistance: 1,
                             coordinateSpace: .local)
                 .onChanged { value in
                     self.dragOffset = value.translation.width
-                    self.currentScrollOffset = self.computeCurrentScrollOffset(for: outerProxy)
                 }
                 .onEnded { value in
                     // compute nearest index
@@ -99,7 +94,7 @@ public struct PagingScrollView<DataCollection: RandomAccessCollection, PageType:
                     // Calculate what the page would be after the drag
                     // using the final velocity.
                     let newPageIndex = self.indexPageForOffset(
-                        self.currentScrollOffset + velocityDiff,
+                        self.currentScrollOffset(proxy: outerProxy) + velocityDiff,
                         proxy: outerProxy
                     )
                     // Clamp the page so that a free scroll with a lot of
@@ -107,10 +102,9 @@ public struct PagingScrollView<DataCollection: RandomAccessCollection, PageType:
                     // multiple pages.
                     let finalIndex = newPageIndex
                         .clamped(to: (self.activePageIndex - 1)...(self.activePageIndex + 1))
-                    self.dragOffset = 0
-                    withAnimation {
+                    withAnimation(.interpolatingSpring(mass: 0.1, stiffness: 15, damping: 1.5, initialVelocity: 0)) {
+                        self.dragOffset = 0
                         self.activePageIndex = finalIndex
-                        self.currentScrollOffset = self.computeCurrentScrollOffset(for: outerProxy)
                     }
                 }
             )
@@ -145,14 +139,6 @@ extension PagingScrollView {
         var computedIndex = Int(round(floatIndex))
         computedIndex = max(computedIndex, 0)
         return min(computedIndex, self.itemCount - 1)
-    }
-
-    /// Current scroll offset applied on items.
-    /// - Parameter proxy: Proxy that contains this view.
-    private func computeCurrentScrollOffset(for proxy: GeometryProxy) -> CGFloat {
-        return self.offsetForPageIndex(self.activePageIndex,
-                                       proxy: proxy)
-            + self.dragOffset
     }
 
     /// Logical offset starting at 0 for the first item - this makes computing the page index easier
@@ -190,6 +176,10 @@ extension PagingScrollView {
     /// Since the HStack is centered by default this offset actually moves it entirely to the left
     /// - Parameter proxy: Proxy that contains this view.
     private func stackOffset(for proxy: GeometryProxy) -> CGFloat {
+        if #available(iOS 14, *) {
+            return 0
+        }
+
         let remainingSpace = contentWidth(for: proxy)
             - pageWidth(for: proxy)
             - tilePadding
