@@ -21,3 +21,15 @@ extension View {
         frame(width: length, height: length, alignment: alignment)
     }
 }
+
+// MARK: - If
+extension View {
+    @ViewBuilder
+    public func `if`<Transform: View>(_ condition: @autoclosure () -> Bool, transform: (Self) -> Transform) -> some View {
+        if (condition()) {
+            transform(self)
+        } else {
+            self
+        }
+    }
+}
