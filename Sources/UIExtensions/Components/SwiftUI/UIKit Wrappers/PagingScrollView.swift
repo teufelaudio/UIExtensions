@@ -176,9 +176,11 @@ extension PagingScrollView {
     /// Since the HStack is centered by default this offset actually moves it entirely to the left
     /// - Parameter proxy: Proxy that contains this view.
     private func stackOffset(for proxy: GeometryProxy) -> CGFloat {
-        if #available(iOS 14, *) {
+        #if swift(>=5.3)
+        if #available(iOS 14.0, *) {
             return 0
         }
+        #endif
 
         let remainingSpace = contentWidth(for: proxy)
             - pageWidth(for: proxy)
