@@ -40,3 +40,22 @@ extension View {
         }
     }
 }
+
+// MARK: - If Let
+extension View {
+    /// Conditionally applies a transformation to the receiving view.
+    /// - Parameters:
+    ///   - condition: Condition to evaluate. It's evaluated lazily. If condition evaluates to `true`, `transform` is applied.
+    ///   - transform: Transformation to apply to the `View`. This can be used ot apply ViewModifiers or similar.
+    /// - Returns: The same view, either unchanged or with transformation applied.
+    ///
+    /// Inspiration taken from <https://fivestars.blog/swiftui/conditional-modifiers.html>
+    @ViewBuilder
+    public func `ifLet`<Transform: View, T>(_ optional: @autoclosure () -> T?, transform: (Self, T) -> Transform) -> some View {
+        if let value = optional() {
+            transform(self, value)
+        } else {
+            self
+        }
+    }
+}
