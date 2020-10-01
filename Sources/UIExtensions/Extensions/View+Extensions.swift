@@ -20,6 +20,16 @@ extension View {
     public func squared(length: CGFloat, alignment: Alignment = .center) -> some View {
         frame(width: length, height: length, alignment: alignment)
     }
+
+    /// Dumps the content (using `Swift.dump()` of `t` when evaluating this View.
+    /// Especially useful for monitoring animated values during transitions.
+    ///
+    /// - Parameter t: Value to dump. Can be a variable, or a binding, or anything.
+    /// - Returns: The unmodified receiving view.
+    public func dump<T>(_ t: @autoclosure () -> T) -> Self {
+        Swift.dump(t())
+        return self
+    }
 }
 
 // MARK: - If
