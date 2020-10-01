@@ -17,8 +17,8 @@ extension View {
 }
 
 private struct EdgeBorder: Shape {
-    var width: CGFloat
-    var edges: [Edge]
+    let width: CGFloat
+    let edges: [Edge]
 
     func path(in rect: CGRect) -> Path {
         var path = Path()
