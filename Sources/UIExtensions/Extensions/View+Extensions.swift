@@ -20,6 +20,11 @@ extension View {
     public func squared(length: CGFloat, alignment: Alignment = .center) -> some View {
         frame(width: length, height: length, alignment: alignment)
     }
+
+    public func dump<T>(_ t: T) -> Self {
+        Swift.dump(t)
+        return self
+    }
 }
 
 // MARK: - If
