@@ -19,7 +19,7 @@ public struct GeometryPreferenceReporter<Key: PreferenceKey>: View {
         GeometryReader { geometry in
             Rectangle()
                 .fill(Color.clear)
-                .preference(key: Key.self, value: geometry[keyPath: keyPath])
+                .preference(key: Key.self, value: geometry[keyPath: self.keyPath])
         }
     }
 }
