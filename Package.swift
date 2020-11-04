@@ -16,6 +16,10 @@ let package = Package(
         .library(
             name: "UIExtensions",
             targets: ["UIExtensions"]),
+        .library(
+            name: "UIExtensionsDynamic",
+            type: .dynamic,
+            targets: ["UIExtensionsDynamic"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -28,6 +32,10 @@ let package = Package(
         .target(
             name: "UIExtensions",
             dependencies: [.product(name: "CombineRex", package: "SwiftRex"),
+                           "FoundationExtensions"]),
+        .target(
+            name: "UIExtensionsDynamic",
+            dependencies: [.product(name: "CombineRexDynamic", package: "SwiftRex"),
                            "FoundationExtensions"]),
         .testTarget(
             name: "UIExtensionsTests",
