@@ -46,6 +46,21 @@ extension View {
 
     @available(tvOS, unavailable)
     @available(watchOS, unavailable)
+    public func sharePopover<V: View>(
+        isPresented: Binding<Bool>,
+        activityItems: [Any] = [],
+        applicationActivities: [UIActivity]? = nil,
+        attachmentAnchor: PopoverAttachmentAnchor = .rect(.bounds),
+        arrowEdge: Edge = .top,
+        contentFormatting: @escaping (ShareSheetView) -> V
+    ) -> some View {
+        popover(isPresented: isPresented, attachmentAnchor: attachmentAnchor, arrowEdge: arrowEdge) {
+            contentFormatting(ShareSheetView(activityItems: activityItems, applicationActivities: applicationActivities))
+        }
+    }
+
+    @available(tvOS, unavailable)
+    @available(watchOS, unavailable)
     public func sharePopover(
         isPresented: Binding<Bool>,
         activityItems: [Any] = [],
@@ -53,9 +68,14 @@ extension View {
         attachmentAnchor: PopoverAttachmentAnchor = .rect(.bounds),
         arrowEdge: Edge = .top
     ) -> some View {
-        popover(isPresented: isPresented, attachmentAnchor: attachmentAnchor, arrowEdge: arrowEdge) {
-            ShareSheetView(activityItems: activityItems, applicationActivities: applicationActivities)
-        }
+        sharePopover(
+            isPresented: isPresented,
+            activityItems: activityItems,
+            applicationActivities: applicationActivities,
+            attachmentAnchor: attachmentAnchor,
+            arrowEdge: arrowEdge,
+            contentFormatting: { $0 }
+        )
     }
 }
 #endif
