@@ -23,7 +23,6 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(name: "SwiftRex", url: "https://github.com/SwiftRex/SwiftRex.git", .upToNextMajor(from: "0.8.1")),
         .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", .upToNextMajor(from: "0.1.4"))
     ],
     targets: [
@@ -31,12 +30,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "UIExtensions",
-            dependencies: [.product(name: "CombineRex", package: "SwiftRex"),
-                           "FoundationExtensions"]),
+            dependencies: ["FoundationExtensions"]),
         .target(
             name: "UIExtensionsDynamic",
-            dependencies: [.product(name: "CombineRexDynamic", package: "SwiftRex"),
-                           "FoundationExtensions"]),
+            dependencies: ["FoundationExtensions"]),
         .testTarget(
             name: "UIExtensionsTests",
             dependencies: ["UIExtensions"]),
