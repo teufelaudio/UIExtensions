@@ -33,6 +33,11 @@ public struct PageControlDotsView: View {
                     .animation(.easeInOut(duration: 0.1))
                     .frame(width: 7, height: 7, alignment: .center)
                     .padding(.horizontal, 1.25)
+                    .onTapGesture {
+                        withAnimation {
+                            currentPage = page
+                        }
+                    }
             }
         }
         .padding(.vertical, 10)
