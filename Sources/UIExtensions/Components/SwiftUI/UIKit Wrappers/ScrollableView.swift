@@ -89,12 +89,12 @@ public final class UIScrollViewController<Content: View>: UIViewController, UISc
         // First, create a bounding size. This is done by taking the scrollView's
         // size and replacing one part, depending on scrollview axis, with
         // greatestFiniteMagnitude.
-        var boundingSize = self.scrollView.frame.size
+        var boundingSize: CGSize = self.scrollView.frame.size
         switch axis {
         case .vertical:
-            boundingSize.height = .greatestFiniteMagnitude
+            boundingSize.height = CGFloat.greatestFiniteMagnitude
         case .horizontal:
-            boundingSize.width = .greatestFiniteMagnitude
+            boundingSize.width = CGFloat.greatestFiniteMagnitude
         }
 
         // This allows the contentView to accurately calculate how much space

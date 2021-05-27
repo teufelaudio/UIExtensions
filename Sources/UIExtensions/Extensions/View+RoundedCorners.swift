@@ -17,7 +17,7 @@ extension View {
 }
 
 private struct RoundedCorners: Shape {
-    var radius: CGFloat = .infinity
+    var radius: CGFloat = CGFloat.infinity
     var corners: UIRectCorner = .allCorners
 
     func path(in rect: CGRect) -> Path {

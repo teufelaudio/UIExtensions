@@ -27,7 +27,7 @@ public struct InfiniteFrameModifier: ViewModifier {
     }
 
     private func value(for axis: Axis.Set) -> CGFloat? {
-        axes.contains(axis) ? .infinity : nil
+        axes.contains(axis) ? CGFloat.infinity : nil
     }
 }
 
