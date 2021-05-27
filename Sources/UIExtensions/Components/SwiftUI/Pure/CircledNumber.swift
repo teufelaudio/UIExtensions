@@ -22,7 +22,7 @@ public struct CircledNumber<Content: View, S: ShapeStyle>: View {
 #if DEBUG
 struct CircledNumberPreviews: PreviewProvider {
     static var previews: some View {
-        CircledNumber(number: 9, length: 18) { Text("\($0)") }
+        CircledNumber(number: 9, length: 18, strokeContent: Color.black) { Text("\($0)") }
     }
 }
 #endif
