@@ -16,7 +16,7 @@ extension CGPoint {
     /// It normalizes relative to the given size.
     /// - Parameter size: The size to consider as maximum. So if x == 400 & width == 400, x = 1
     public func normalized(to size: CGSize) -> UnitPoint {
-        return .init(x: x / size.width, y: y / size.height)
+        return UnitPoint.init(x: x / size.width, y: y / size.height)
     }
 }
 

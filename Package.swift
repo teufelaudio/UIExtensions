@@ -30,7 +30,10 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
             name: "UIExtensions",
-            dependencies: ["FoundationExtensions"]),
+            dependencies: ["FoundationExtensions"]
+//          Enable this for build performance warnings. Works only when building the Package, works not when building the workspace! Obey the comma.
+//            , swiftSettings: [SwiftSetting.unsafeFlags(["-Xfrontend", "-warn-long-expression-type-checking=10", "-Xfrontend", "-warn-long-function-bodies=10"])]
+        ),
         .target(
             name: "UIExtensionsDynamic",
             dependencies: ["FoundationExtensions"]),

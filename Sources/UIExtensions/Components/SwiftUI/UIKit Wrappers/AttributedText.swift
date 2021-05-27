@@ -111,13 +111,15 @@ extension UILabel {
         layoutManager.addTextContainer(textContainer)
 
         // get the tapped character location
-        let locationOfTouchInLabel = point
+        let locationOfTouchInLabel: CGPoint = point
         // account for text alignment and insets
         let textBoundingBox = layoutManager.usedRect(for: textContainer)
 
         let xOffset = ((bounds.size.width - textBoundingBox.size.width) * alignmentOffset) - textBoundingBox.origin.x
         let yOffset = ((bounds.size.height - textBoundingBox.size.height) * alignmentOffset) - textBoundingBox.origin.y
-        let locationOfTouchInTextContainer = CGPoint(x: locationOfTouchInLabel.x - xOffset, y: locationOfTouchInLabel.y - yOffset)
+        let xPos: CGFloat = locationOfTouchInLabel.x - xOffset
+        let yPos: CGFloat = locationOfTouchInLabel.y - yOffset
+        let locationOfTouchInTextContainer = CGPoint(x: xPos, y: yPos)
 
         // figure out which character was tapped
         let characterTapped = layoutManager.characterIndex(for: locationOfTouchInTextContainer,
@@ -125,8 +127,9 @@ extension UILabel {
                                                            fractionOfDistanceBetweenInsertionPoints: nil)
 
         // figure out how many characters are in the string up to and including the line tapped
-        let lineTapped = Int(ceil(locationOfTouchInLabel.y / font.lineHeight)) - 1
-        let rightMostPointInLineTapped = CGPoint(x: bounds.size.width, y: font.lineHeight * CGFloat(lineTapped))
+        let tappedLinePos: Int = Int(ceil(locationOfTouchInLabel.y / font.lineHeight)) - Int(1)
+        let rightMostPontY: CGFloat = font.lineHeight * CGFloat(tappedLinePos)
+        let rightMostPointInLineTapped = CGPoint(x: bounds.size.width, y: rightMostPontY)
         let charsInLineTapped = layoutManager.characterIndex(for: rightMostPointInLineTapped,
                                                              in: textContainer,
                                                              fractionOfDistanceBetweenInsertionPoints: nil)
@@ -135,10 +138,10 @@ extension UILabel {
         if characterTapped < charsInLineTapped {
             return attributedText
                 .attributes(at: characterTapped, effectiveRange: nil)
-                .first { key, _ in
+                .first { (key: NSAttributedString.Key, _) -> Bool in
                     key == NSAttributedString.Key.link || key == NSAttributedString.Key.attachment
                 }
-                .flatMap { _, value in
+                .flatMap { (_, value: Any) -> URL? in
                     (value as? String).flatMap(URL.init(string:)) ?? value as? URL
                 }
         } else {
