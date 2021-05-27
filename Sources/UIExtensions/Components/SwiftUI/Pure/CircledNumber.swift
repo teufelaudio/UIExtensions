@@ -2,18 +2,20 @@
 
 import SwiftUI
 
-public struct CircledNumber<Content: View>: View {
+public struct CircledNumber<Content: View, S: ShapeStyle>: View {
     private let length: CGFloat
     private let content: Content
+    private let strokeContent: S
 
-    public init(number: Int, length: CGFloat, @ViewBuilder content: @escaping (Int) -> Content) {
+    public init(number: Int, length: CGFloat, strokeContent: S, @ViewBuilder content: @escaping (Int) -> Content) {
         self.content = content(number)
         self.length = length
+        self.strokeContent = strokeContent
     }
     public var body: some View {
         content
             .squared(length: length)
-            .background(Circle().stroke(Color.black), alignment: .center)
+            .background(Circle().stroke(strokeContent), alignment: .center)
     }
 }
 
