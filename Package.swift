@@ -11,7 +11,7 @@ let package = Package(
         .library(name: "UIExtensionsAllStatic", targets: ["UIExtensionsAllStatic"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", .upToNextMajor(from: "0.1.4"))
+        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", .upToNextMajor(from: "0.1.7"))
     ],
     targets: [
         .target(
