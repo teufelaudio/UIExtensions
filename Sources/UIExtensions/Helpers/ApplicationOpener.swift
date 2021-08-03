@@ -10,18 +10,19 @@
 import Foundation
 import UIKit
 
-public protocol ApplicationOpener {
-    static var openSettingsURLString: String { get }
+@objc
+public  protocol ApplicationOpener {
+    var openSettingsURL: String { get }
     func canOpenURL(_ url: URL) -> Bool
+    @available(iOSApplicationExtension, unavailable)
+    @objc(openURL:options:completionHandler:)
     func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: ((Bool) -> Void)?)
 }
 
-extension ApplicationOpener {
-    public var openSettingsURLString: String {
-        return Self.openSettingsURLString
-    }
-}
-
+@available(iOSApplicationExtension, unavailable)
 extension UIApplication: ApplicationOpener {
+    public var openSettingsURL: String {
+        Self.openSettingsURLString
+    }
 }
 #endif
