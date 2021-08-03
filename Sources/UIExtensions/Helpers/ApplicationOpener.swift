@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 @objc
-public  protocol ApplicationOpener {
+public protocol ApplicationOpener {
     var openSettingsURL: String { get }
     func canOpenURL(_ url: URL) -> Bool
     @available(iOSApplicationExtension, unavailable)
