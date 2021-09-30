@@ -31,7 +31,7 @@ extension Spacer {
         Spacer(minLength: value).frame(width: 1, height: value)
     }
 
-    public static func multiple(_ multipler: Int) -> some View {
-        MultipleSpacer(multiplier: multipler)
+    public static func multiple(_ multipler: Int, minLength: CGFloat? = nil) -> some View {
+        MultipleSpacer(multiplier: multipler, minLength: minLength)
     }
 }
