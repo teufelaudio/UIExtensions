@@ -69,3 +69,19 @@ extension View {
         }
     }
 }
+
+// MARK: - Conditional hidden
+extension View {
+    /// Conditionally applies the hidden modifier to the receiving view, or leaves it unchanged.
+    /// - Parameters:
+    ///   - shouldHide: Condition to evaluate. If shouldHide evaluates to `false`,  the view is returned.
+    /// - Returns: The same view, either hidden or not.
+    @ViewBuilder func hidden(_ shouldHide: Bool) -> some View {
+        switch shouldHide {
+        case true:
+            self.hidden()
+        case false:
+            self
+        }
+    }
+}
