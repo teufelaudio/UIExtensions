@@ -12,17 +12,22 @@ import Foundation
 /// more pixels and less priority those with fewer pixels. If pixel count is the same, aspect decides. Hashable ensure
 /// that you can't have 2 options with exact same height and width.
 public struct ConditionalSizeViewState<ContentState: Equatable>: Equatable {
-    public struct Option: Hashable {
+    struct Option: Hashable {
+        init(size: CGSize, contentState: ContentState) {
+            self.size = size
+            self.contentState = contentState
+        }
+
         let size: CGSize
         let contentState: ContentState
 
-        public func hash(into hasher: inout Hasher) {
+        func hash(into hasher: inout Hasher) {
             // We should only consider the size for hashing the options.
             hasher.combine(size.width)
             hasher.combine(size.height)
         }
 
-        public static func ==(lhs: Self, rhs: Self) -> Bool {
+        static func ==(lhs: Self, rhs: Self) -> Bool {
             // We should only consider the size when implementing Equatable on the options.
             lhs.size == rhs.size
         }
@@ -31,7 +36,12 @@ public struct ConditionalSizeViewState<ContentState: Equatable>: Equatable {
     let options: Set<Option>
     let enforceAspect: Bool
 
-    public init(options: Set<Option>, enforceAspect: Bool = false) {
+    public init(options: [(size: CGSize, contentState: ContentState)], enforceAspect: Bool = false) {
+        self.options = Set(options.map { .init(size: $0.size, contentState: $0.contentState) })
+        self.enforceAspect = enforceAspect
+    }
+
+    init(options: Set<Option>, enforceAspect: Bool = false) {
         self.options = options
         self.enforceAspect = enforceAspect
     }
