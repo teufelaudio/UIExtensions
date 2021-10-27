@@ -1,5 +1,6 @@
 //  Copyright © 2021 Lautsprecher Teufel GmbH. All rights reserved.
 
+import CoreGraphics
 import Foundation
 
 /// View State to be used with ConditionalSizeView
