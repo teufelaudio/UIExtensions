@@ -27,7 +27,7 @@ public struct ConditionalSizeViewState<ContentState: Equatable>: Equatable {
             hasher.combine(size.height)
         }
 
-        static func ==(lhs: Self, rhs: Self) -> Bool {
+        static func == (lhs: Self, rhs: Self) -> Bool {
             // We should only consider the size when implementing Equatable on the options.
             lhs.size == rhs.size
         }
@@ -57,7 +57,7 @@ public struct ConditionalSizeViewState<ContentState: Equatable>: Equatable {
                         == (availableSize.height >= availableSize.width))
                 )
             }
-            .sorted(by: {
+            .max(by: {
                 let lhsHeight = $0.size.height
                 let rhsHeight = $1.size.height
 
@@ -68,18 +68,17 @@ public struct ConditionalSizeViewState<ContentState: Equatable>: Equatable {
                 let rhsPixels = rhsHeight * rhsWidth
 
                 if lhsPixels != rhsPixels {         // When they have different amount of pixels,
-                    return lhsPixels > rhsPixels    // sort by pixels on descending order
+                    return lhsPixels < rhsPixels    // sort by pixels on ascending order (max will pick the larger)
                 }
                                                     // otherwise check if available space is vertical
                 let availableSpaceIsVertical = availableSize.height >= availableSize.width
 
                 if availableSpaceIsVertical {        // if available space is vertical (or square)
-                    return lhsHeight > rhsHeight     // sort by height on descending order,
+                    return lhsHeight < rhsHeight     // sort by height on ascending order (max will pick the larger),
                 } else {
-                    return lhsWidth > rhsWidth       // but if it's horizontal, then sort by width on descending order
+                    return lhsWidth < rhsWidth       // but if it's horizontal, then sort by width on ascending order
                 }
 
             })
-            .first
     }
 }
