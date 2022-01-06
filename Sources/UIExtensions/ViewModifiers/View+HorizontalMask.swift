@@ -22,9 +22,7 @@ extension View {
                         .frame(width: $0)
             }
 
-            LinearGradient(gradient: Gradient(colors: [Color.black, Color.black]),
-                    startPoint: .leading,
-                    endPoint: .trailing)
+            Color.black
 
             rightFade.map {
                 LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0), Color.black]),
