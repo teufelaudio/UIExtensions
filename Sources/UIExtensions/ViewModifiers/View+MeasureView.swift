@@ -13,7 +13,7 @@ struct ViewSizeKey: PreferenceKey {
 extension View {
 
     /// Measures the view dimensions.
-    func measureView(_ result: @escaping (CGSize) -> Void) -> some View {
+    public func measureView(_ result: @escaping (CGSize) -> Void) -> some View {
         overlay(GeometryReader { proxy in
             Color.clear.preference(key: ViewSizeKey.self, value: proxy.size)
         }

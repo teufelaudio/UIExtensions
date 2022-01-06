@@ -4,7 +4,7 @@ import SwiftUI
 
 extension View {
 
-    /// Add's a horizontally fade in/out effect to the view. The padding allows to start the fade effect relative to the horizontal bounds of the view.
+    /// Adds a horizontally fade in/out effect to the view. The padding allows to start the fade effect relative to the horizontal bounds of the view.
     public func maskHorizontally(leftPadding: CGFloat = 0, leftFade: CGFloat? = nil, rightFade: CGFloat? = nil, rightPadding: CGFloat = 0) -> some View {
         self.mask(horizontalMask(leftPadding: leftPadding, leftFade: leftFade, rightFade: rightFade, rightPadding: rightPadding))
     }
