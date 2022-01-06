@@ -1,4 +1,4 @@
-// Copyright © 2021 Lautsprecher Teufel GmbH. All rights reserved.
+// Copyright © 2022 Lautsprecher Teufel GmbH. All rights reserved.
 
 @testable import UIExtensions
 import TestingExtensions
