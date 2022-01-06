@@ -5,35 +5,31 @@ import SwiftUI
 extension View {
 
     /// Adds a horizontally fade in/out effect to the view. The padding allows to start the fade effect relative to the horizontal bounds of the view.
-    public func maskHorizontally(leftPadding: CGFloat = 0, leftFade: CGFloat? = nil, rightFade: CGFloat? = nil, rightPadding: CGFloat = 0) -> some View {
-        self.mask(horizontalMask(leftPadding: leftPadding, leftFade: leftFade, rightFade: rightFade, rightPadding: rightPadding))
-    }
-
-    private func horizontalMask(leftPadding: CGFloat, leftFade: CGFloat? = nil, rightFade: CGFloat? = nil, rightPadding: CGFloat) -> some View {
-        HStack(spacing: 0) {
-            Rectangle()
-                    .frame(width: leftPadding)
-                    .opacity(0)
-
-            leftFade.map {
+    /// ```
+    ///  ◀─leadingPadding─▶ ◀─leadingFade─▶ ◀──[expands]──▶ ◀─trailingFade─▶ ◀─trailingPadding─▶
+    /// ┌──────────────────┬───────────────┬───────────────┬────────────────┬──────────────────┐
+    /// │                  │               │               │                │                  │
+    /// │        _         │       ◢       │      ███      │       ◣        │        _         │
+    /// │                  │               │               │                │                  │
+    /// └──────────────────┴───────────────┴───────────────┴────────────────┴──────────────────┘
+    /// ```
+    public func maskHorizontally(leadingPadding: CGFloat = 0, leadingFade: CGFloat = 0, trailingFade: CGFloat = 0, trailingPadding: CGFloat = 0) -> some View {
+        self.mask(
+            HStack(spacing: 0) {
                 LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0), Color.black]),
-                        startPoint: .leading,
-                        endPoint: .trailing)
-                        .frame(width: $0)
-            }
+                               startPoint: .leading,
+                               endPoint: .trailing)
+                    .frame(width: leadingFade)
 
-            Color.black
+                Color.black
 
-            rightFade.map {
                 LinearGradient(gradient: Gradient(colors: [Color.black.opacity(0), Color.black]),
-                        startPoint: .trailing,
-                        endPoint: .leading)
-                        .frame(width: $0)
+                               startPoint: .trailing,
+                               endPoint: .leading)
+                    .frame(width: trailingFade)
             }
-
-            Rectangle()
-                    .frame(width: rightPadding)
-                    .opacity(0)
-        }
+            .padding(.leading, leadingPadding)
+            .padding(.trailing, trailingPadding)
+        )
     }
 }
