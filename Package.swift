@@ -8,10 +8,9 @@ let package = Package(
     products: [
         .library(name: "UIExtensions", targets: ["UIExtensions"]),
         .library(name: "UIExtensionsDynamic", type: .dynamic, targets: ["UIExtensions"]),
-        .library(name: "UIExtensionsAllStatic", targets: ["UIExtensionsAllStatic"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", .upToNextMajor(from: "0.1.12")),
+        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", .exact("0.1.17")),
         .package(url: "https://github.com/SwiftRex/TestingExtensions.git", .upToNextMajor(from: "0.2.7"))
     ],
     targets: [
@@ -20,8 +19,8 @@ let package = Package(
             dependencies: [.product(name: "FoundationExtensions", package: "FoundationExtensions")]
         ),
         .target(
-            name: "UIExtensionsAllStatic",
-            dependencies: [.product(name: "FoundationExtensionsStatic", package: "FoundationExtensions")]
+            name: "UIExtensionsDynamic",
+            dependencies: [.product(name: "FoundationExtensionsDynamic", package: "FoundationExtensions")]
         ),
         .testTarget(name: "UIExtensionsTests", dependencies: ["TestingExtensions", "UIExtensions"]),
     ]
