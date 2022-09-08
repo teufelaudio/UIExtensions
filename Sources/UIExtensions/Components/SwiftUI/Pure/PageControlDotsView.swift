@@ -31,8 +31,8 @@ public struct PageControlDotsView: View {
                 Circle()
                     .fill(currentPage == page ? currentPageIndicatorTintColor : pageIndicatorTintColor)
                     .animation(.easeInOut(duration: 0.1))
-                    .frame(width: 7, height: 7, alignment: .center)
-                    .padding(.horizontal, 1.25)
+                    .frame(width: 8, height: 8, alignment: .center)
+                    .padding(.horizontal, 3)
                     .onTapGesture {
                         withAnimation {
                             currentPage = page
