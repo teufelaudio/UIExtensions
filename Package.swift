@@ -10,7 +10,7 @@ let package = Package(
         .library(name: "UIExtensionsDynamic", type: .dynamic, targets: ["UIExtensions"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", .exact("0.1.17")),
+        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", .exact("0.1.19")),
         .package(url: "https://github.com/SwiftRex/TestingExtensions.git", .upToNextMajor(from: "0.2.7"))
     ],
     targets: [
