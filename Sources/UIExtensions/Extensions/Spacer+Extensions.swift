@@ -1,10 +1,4 @@
-//
-//  Spacer+Extensions.swift
-//  UIExtensions
-//
-//  Created by Luiz Rodrigo Martins Barbosa on 29.04.20.
-//  Copyright © 2020 Lautsprecher Teufel GmbH. All rights reserved.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 import Foundation
 import SwiftUI

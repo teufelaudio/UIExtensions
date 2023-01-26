@@ -1,9 +1,4 @@
-//
-//  File.swift
-//  
-//
-//  Created by Luis Reisewitz on 15.05.20.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 #if canImport(UIKit)
 import SwiftUI

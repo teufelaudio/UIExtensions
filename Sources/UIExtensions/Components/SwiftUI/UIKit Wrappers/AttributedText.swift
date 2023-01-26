@@ -1,10 +1,4 @@
-//
-//  AttributedText.swift
-//  UIExtensions
-//
-//  Created by Luiz Barbosa on 25.11.19.
-//  Copyright © 2019 Lautsprecher Teufel GmbH. All rights reserved.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 #if canImport(UIKit)
 import SwiftUI
