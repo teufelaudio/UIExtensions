@@ -10,7 +10,7 @@ struct NavigationStack<Content: View>: View {
     }
 
     var body: some View {
-        if #available(iOS 16, macOS 13, *) {
+        if #available(iOS 16, macOS 13, tvOS 16, watchOS 9, *) {
             SwiftUI.NavigationStack {
                 content()
             }
