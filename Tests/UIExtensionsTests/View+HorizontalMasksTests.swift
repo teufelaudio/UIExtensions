@@ -1,5 +1,6 @@
 // Copyright © 2022 Lautsprecher Teufel GmbH. All rights reserved.
 
+#if canImport(UIKit) && canImport(XCTest)
 @testable import UIExtensions
 import TestingExtensions
 import SnapshotTesting
@@ -16,3 +17,4 @@ final class ViewHorizontalMasksTests: SnapshotTestBase {
         assertSnapshotDevices(view.environment(\.disableAnimations, true), devices: [("SE", .iPhoneSe)], style: [.light])
     }
 }
+#endif
