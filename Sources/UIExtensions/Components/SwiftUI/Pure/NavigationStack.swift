@@ -2,14 +2,14 @@
 
 import SwiftUI
 
-struct NavigationStack<Content: View>: View {
+public struct NavigationStack<Content: View>: View {
     private let content: () -> Content
 
-    init(@ViewBuilder _ content: @escaping () -> Content) {
+    public init(@ViewBuilder _ content: @escaping () -> Content) {
         self.content = content
     }
 
-    var body: some View {
+    public var body: some View {
         if #available(iOS 16, macOS 13, tvOS 16, watchOS 9, *) {
             SwiftUI.NavigationStack {
                 content()
