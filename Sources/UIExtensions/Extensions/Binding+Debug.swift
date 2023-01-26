@@ -1,10 +1,4 @@
-//
-//  Binding+Debug.swift
-//  UIExtensions
-//
-//  Created by Luis Reisewitz on 11.12.20.
-//  Copyright © 2020 Lautsprecher Teufel GmbH. All rights reserved.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 // The following additions are only to be used in Debug mode.
 #if DEBUG && canImport(SwiftUI)

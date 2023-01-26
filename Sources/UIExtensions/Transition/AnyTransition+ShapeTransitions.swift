@@ -1,10 +1,4 @@
-//
-//  AnyTransition+ShapeTransitions.swift
-//  UIExtensions
-//
-//  Created by Luiz Rodrigo Martins Barbosa on 29.11.19.
-//  Copyright © 2019 Lautsprecher Teufel GmbH. All rights reserved.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 import Foundation
 import SwiftUI

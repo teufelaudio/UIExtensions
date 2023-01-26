@@ -1,10 +1,4 @@
-//
-//  View+RoundedCorners.swift
-//  UIExtensions
-//
-//  Created by Luis Reisewitz on 14.01.20.
-//  Copyright © 2020 Lautsprecher Teufel GmbH. All rights reserved.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 #if canImport(UIKit)
 import SwiftUI

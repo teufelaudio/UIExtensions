@@ -1,10 +1,4 @@
-//
-//  DisableKerning.swift
-//  Components
-//
-//  Created by Luis Reisewitz on 06.05.20.
-//  Copyright © 2020 Lautsprecher Teufel GmbH. All rights reserved.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 import SwiftUI
 

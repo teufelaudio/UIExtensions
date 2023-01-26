@@ -1,10 +1,4 @@
-//
-//  DisableAnimations.swift
-//  Components
-//
-//  Created by Luiz Barbosa on 09.01.20.
-//  Copyright © 2020 Lautsprecher Teufel GmbH. All rights reserved.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 import Foundation
 import SwiftUI

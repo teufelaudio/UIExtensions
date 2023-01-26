@@ -1,10 +1,4 @@
-//
-//  PageControlView.swift
-//  UIExtensions
-//
-//  Created by Luiz Rodrigo Martins Barbosa on 10.06.20.
-//  Copyright © 2020 Lautsprecher Teufel GmbH. All rights reserved.
-//
+// Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
 #if canImport(UIKit)
 import SwiftUI
