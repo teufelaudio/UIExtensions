@@ -150,7 +150,7 @@ extension View {
     @available(iOS, introduced: 15)
     @available(macOS, introduced: 12)
     @ViewBuilder
-    public func navigationDestination<Value: Equatable, WrappedDestination: View>(
+    public func navigationDestination<Value, WrappedDestination: View>(
         unwrapping value: Binding<Value?>,
         onNavigate: @escaping (_ isActive: Bool) -> Void = { _ in },
         @ViewBuilder destination: @escaping (Binding<Value>) -> WrappedDestination
@@ -197,7 +197,7 @@ extension View {
     ///   - destination: A closure returning the content of the destination.
     @available(iOS, introduced: 15)
     @available(macOS, introduced: 12)
-    public func navigationDestination<Enum, Case: Equatable, WrappedDestination: View>(
+    public func navigationDestination<Enum, Case, WrappedDestination: View>(
         unwrapping enum: Binding<Enum?>,
         case casePath: CasePath<Enum, Case>,
         onNavigate: @escaping (Bool) -> Void = { _ in },
@@ -214,7 +214,7 @@ extension View {
 // MARK: View Modifier
 @available(iOS, introduced: 15, deprecated: 16)
 @available(macOS, introduced: 12, deprecated: 13)
-fileprivate struct _ProgrammaticNavigationLink<Value: Equatable, WrappedDestination: View>: ViewModifier {
+fileprivate struct _ProgrammaticNavigationLink<Value, WrappedDestination: View>: ViewModifier {
     private let value: Binding<Value?>
     private let onNavigate: (Bool) -> Void
     private let destination: (Binding<Value>) -> WrappedDestination
@@ -246,8 +246,8 @@ fileprivate struct _ProgrammaticNavigationLink<Value: Equatable, WrappedDestinat
                 .accessibilityHidden(true)
             }
             // `.onChange` modifiers used to sync `isActive`, `value`, `onNavigate`.
-            .onChange(of: value.wrappedValue) { value in
-                isActive = value != nil
+            .onChange(of: value.wrappedValue == nil ? false : true) { value in
+                isActive = value
             }
             .onChange(of: isActive) { newState in
                 if !newState { value.wrappedValue = nil }
