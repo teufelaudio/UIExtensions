@@ -147,23 +147,14 @@ extension View {
     ///     source of truth when it is passed a value of `true`. When passed `false`, the system will
     ///     automatically write `nil` to `value`.
     ///   - destination: A closure returning the content of the destination.
-    @available(iOS, introduced: 15)
-    @available(macOS, introduced: 12)
+    @available(iOS, introduced: 15, deprecated: 16)
+    @available(macOS, introduced: 12, deprecated: 13)
     @ViewBuilder
     public func navigationDestination<Value: Equatable, WrappedDestination: View>(
         unwrapping value: Binding<Value?>,
         onNavigate: @escaping (_ isActive: Bool) -> Void = { _ in },
         @ViewBuilder destination: @escaping (Binding<Value>) -> WrappedDestination
     ) -> some View {
-        if #available(iOS 16, macOS 13, *) {
-            self.modifier(
-                _NavigationDestination(
-                    isPresented: value.isPresent(),
-                    onNavigate: onNavigate,
-                    destination: Binding(unwrapping: value).map(destination)
-                )
-            )
-        } else {
             self.modifier(
                 _ProgrammaticNavigationLink(
                     unwrapping: value,
@@ -171,7 +162,62 @@ extension View {
                     destination: destination
                 )
             )
-        }
+    }
+
+    /// Pushes a view onto an `UIExtensions.NavigationStack` using a binding as a data source for the
+    /// destination's content.
+    ///
+    /// This is a version of SwiftUI's `navigationDestination(isPresented:)` modifier, but powered
+    /// by a binding to optional state instead of a binding to a boolean. When state becomes
+    /// non-`nil`, a _binding_ to the unwrapped value is passed to the destination closure.
+    ///
+    /// ```swift
+    /// struct TimelineView: View {
+    ///   @State var draft: Post?
+    ///
+    ///   var body: Body {
+    ///     Button("Compose") {
+    ///       self.draft = Post()
+    ///     }
+    ///     .navigationDestination(unwrapping: self.$draft) { $draft in
+    ///       ComposeView(post: $draft, onSubmit: { ... })
+    ///     }
+    ///   }
+    /// }
+    ///
+    /// struct ComposeView: View {
+    ///   @Binding var post: Post
+    ///   var body: some View { ... }
+    /// }
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - value: A binding to an optional source of truth for the destination. When `value` is
+    ///     non-`nil`, a non-optional binding to the value is passed to the `destination` closure.
+    ///     You use this binding to produce content that the system pushes to the user in a
+    ///     navigation stack. Changes made to the destination's binding will be reflected back in
+    ///     the source of truth. Likewise, changes to `value` are instantly reflected in the
+    ///     destination. If `value` becomes `nil`, the destination is popped.
+    ///   - onNavigate: A closure that executes when the link becomes active or inactive with a
+    ///     boolean that describes if the link was activated or not. Use this closure to populate the
+    ///     source of truth when it is passed a value of `true`. When passed `false`, the system will
+    ///     automatically write `nil` to `value`.
+    ///   - destination: A closure returning the content of the destination.
+    @available(iOS, introduced: 16)
+    @available(macOS, introduced: 13)
+    @ViewBuilder
+    public func navigationDestination<Value, WrappedDestination: View>(
+        unwrapping value: Binding<Value?>,
+        onNavigate: @escaping (_ isActive: Bool) -> Void = { _ in },
+        @ViewBuilder destination: @escaping (Binding<Value>) -> WrappedDestination
+    ) -> some View {
+            self.modifier(
+                _NavigationDestination(
+                    isPresented: value.isPresent(),
+                    onNavigate: onNavigate,
+                    destination: Binding(unwrapping: value).map(destination)
+                )
+            )
     }
 
     /// Pushes a view onto an `UIExtensions.NavigationStack` using a binding and case path as a data source for
