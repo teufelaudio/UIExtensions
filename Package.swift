@@ -7,12 +7,15 @@ let package = Package(
     platforms: [.macOS(.v10_15), .iOS(.v13)],
     products: [
         .library(name: "UIExtensions", targets: ["UIExtensions"]),
-        .library(name: "UIExtensionsDynamic", type: .dynamic, targets: ["UIExtensions"]),
+        .library(name: "UIExtensionsDynamic", type: .dynamic, targets: ["UIExtensionsDynamic"]),
+        .library(name: "SnapshotTestingExtensions", targets: ["SnapshotTestingExtensions"]),
+        .library(name: "SnapshotTestingExtensionsDynamic", type: .dynamic, targets: ["SnapshotTestingExtensionsDynamic"]),
+
     ],
     dependencies: [
-        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", .upToNextMajor(from: "0.2.0")),
-        .package(url: "https://github.com/SwiftRex/TestingExtensions.git", .upToNextMajor(from: "0.2.7")),
-        .package(url: "https://github.com/pointfreeco/swiftui-navigation.git", .upToNextMajor(from: "0.6.0"))
+        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", from: "0.3.0"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.11.0"),
+        .package(url: "https://github.com/pointfreeco/swiftui-navigation.git", from: "0.6.1"),
     ],
     targets: [
         .target(
@@ -29,6 +32,23 @@ let package = Package(
                 .product(name: "SwiftUINavigation", package: "swiftui-navigation"),
             ]
         ),
-        .testTarget(name: "UIExtensionsTests", dependencies: ["TestingExtensions", "UIExtensions"]),
+        .target(
+            name: "SnapshotTestingExtensions",
+            dependencies: [
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
+        ),
+        .target(
+            name: "SnapshotTestingExtensionsDynamic",
+            dependencies: [
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+            ]
+        ),
+        .testTarget(name: "UIExtensionsTests",
+                    dependencies: [
+                        "SnapshotTestingExtensions",
+                        "UIExtensions",
+                    ]
+                   ),
     ]
 )
