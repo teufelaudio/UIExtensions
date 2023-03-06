@@ -2,8 +2,7 @@
 
 #if canImport(UIKit) && canImport(XCTest)
 @testable import UIExtensions
-import TestingExtensions
-import SnapshotTesting
+import SnapshotTestingExtensions
 import SwiftUI
 import XCTest
 
