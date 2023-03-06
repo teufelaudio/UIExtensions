@@ -9,7 +9,6 @@ let package = Package(
         .library(name: "UIExtensions", targets: ["UIExtensions"]),
         .library(name: "UIExtensionsDynamic", type: .dynamic, targets: ["UIExtensionsDynamic"]),
         .library(name: "SnapshotTestingExtensions", targets: ["SnapshotTestingExtensions"]),
-        .library(name: "SnapshotTestingExtensionsDynamic", type: .dynamic, targets: ["SnapshotTestingExtensionsDynamic"]),
 
     ],
     dependencies: [
@@ -34,12 +33,6 @@ let package = Package(
         ),
         .target(
             name: "SnapshotTestingExtensions",
-            dependencies: [
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
-            ]
-        ),
-        .target(
-            name: "SnapshotTestingExtensionsDynamic",
             dependencies: [
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
             ]
