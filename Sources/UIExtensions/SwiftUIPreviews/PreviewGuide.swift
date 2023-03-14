@@ -4,7 +4,7 @@ import Foundation
 import SwiftUI
 
 #if DEBUG
-struct PreviewGuide: ViewModifier {
+public struct PreviewGuide: ViewModifier {
     private let edge: Edge
     private let color: Color
     private let distance: CGFloat
