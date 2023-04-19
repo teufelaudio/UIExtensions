@@ -3,15 +3,36 @@
 import SwiftUI
 
 #if DEBUG
-public struct PreviewHelper<V: View>: View {
-    private let view: (String) -> V
-    public init(@ViewBuilder view: @escaping (String) -> V) {
-        self.view = view
+public struct PreviewHelper<Content: View>: View {
+    private let devices: [String]
+    private let content: (String) -> Content
+    public static var defaultDevices: [String] {
+        [
+            "iPhone SE (3rd generation)",
+            "iPhone 14 Pro Max",
+            "iPad mini (6th generation)",
+            "iPad Pro (12.9-inch) (6th generation)"
+        ]
+    }
+    public init(
+        _ deviceNames: [String] = defaultDevices,
+        @ViewBuilder content: @escaping (String) -> Content
+    ) {
+        self.devices = deviceNames
+        self.content = content
+    }
+
+    public init(
+        _ deviceNames: [String] = defaultDevices,
+        @ViewBuilder content: @escaping () -> Content
+    ) {
+        self.devices = deviceNames
+        self.content = { _ in content() }
     }
 
     public var body: some View {
-        ForEach(["iPhone SE (1st generation)", "iPhone X", "iPad Pro (12.9-inch) (4th generation)"], id: \.self) { device in
-            self.view(device)
+        ForEach(devices, id: \.self) { device in
+            self.content(device)
                 .previewDevice(.init(stringLiteral: device))
                 .previewDisplayName(device)
         }
