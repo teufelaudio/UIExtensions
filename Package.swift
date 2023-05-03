@@ -1,10 +1,10 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.7
 
 import PackageDescription
 
 let package = Package(
     name: "UIExtensions",
-    platforms: [.macOS(.v10_15), .iOS(.v13)],
+    platforms: [.iOS(.v13)],
     products: [
         .library(name: "UIExtensions", targets: ["UIExtensions"]),
         .library(name: "UIExtensionsDynamic", type: .dynamic, targets: ["UIExtensionsDynamic"]),
@@ -12,7 +12,7 @@ let package = Package(
 
     ],
     dependencies: [
-        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", from: "0.3.0"),
+        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", from: "0.5.0"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.11.0"),
         .package(url: "https://github.com/pointfreeco/swiftui-navigation.git", from: "0.6.1"),
     ],
