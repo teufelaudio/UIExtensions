@@ -4,7 +4,7 @@ import FoundationExtensions
 import SwiftUI
 
 extension View {
-    public func accessibilityIdentifier1<I: AccessibilityIdentifiable>(_ identifier: I) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
+    public func accessibilityIdentifier<I: AccessibilityIdentifiable>(_ identifier: I) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
         if #available(iOS 14, *) {
             return accessibilityIdentifier(identifier.typePath)
         } else {
