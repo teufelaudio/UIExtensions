@@ -4,7 +4,7 @@ import PackageDescription
 
 let package = Package(
     name: "UIExtensions",
-    platforms: [.iOS(.v14)],
+    platforms: [.iOS(.v13)],
     products: [
         .library(name: "UIExtensions", targets: ["UIExtensions"]),
         .library(name: "UIExtensionsDynamic", type: .dynamic, targets: ["UIExtensionsDynamic"]),
