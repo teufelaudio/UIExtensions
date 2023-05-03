@@ -4,12 +4,12 @@ import FoundationExtensions
 import SwiftUI
 
 extension View {
-    @ViewBuilder
-    public func accessibilityIdentifier<I: AccessibilityIdentifiable>(_ identifier: I) -> some View {
+    public func accessibilityIdentifier1<I: AccessibilityIdentifiable>(_ identifier: I) -> ModifiedContent<Self, AccessibilityAttachmentModifier> {
         if #available(iOS 14, *) {
-           accessibilityIdentifier(identifier.typePath)
+            return accessibilityIdentifier(identifier.typePath)
         } else {
-           accessibility(identifier: identifier.typePath)
+            return accessibility(identifier: identifier.typePath)
         }
     }
 }
+
