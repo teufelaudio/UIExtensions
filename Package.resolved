@@ -1,61 +1,59 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "FoundationExtensions",
-        "repositoryURL": "https://github.com/teufelaudio/FoundationExtensions.git",
-        "state": {
-          "branch": null,
-          "revision": "079dcc3f71c0570a908725a7688d1006cd5499c4",
-          "version": "0.3.0"
-        }
-      },
-      {
-        "package": "swift-case-paths",
-        "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
-        "state": {
-          "branch": null,
-          "revision": "f623901b4bcc97f59c36704f81583f169b228e51",
-          "version": "0.13.0"
-        }
-      },
-      {
-        "package": "swift-custom-dump",
-        "repositoryURL": "https://github.com/pointfreeco/swift-custom-dump",
-        "state": {
-          "branch": null,
-          "revision": "dd86159e25c749873f144577e5d18309bf57534f",
-          "version": "0.8.0"
-        }
-      },
-      {
-        "package": "swift-snapshot-testing",
-        "repositoryURL": "https://github.com/pointfreeco/swift-snapshot-testing.git",
-        "state": {
-          "branch": null,
-          "revision": "cef5b3f6f11781dd4591bdd1dd0a3d22bd609334",
-          "version": "1.11.0"
-        }
-      },
-      {
-        "package": "swiftui-navigation",
-        "repositoryURL": "https://github.com/pointfreeco/swiftui-navigation.git",
-        "state": {
-          "branch": null,
-          "revision": "270a754308f5440be52fc295242eb7031638bd15",
-          "version": "0.6.1"
-        }
-      },
-      {
-        "package": "xctest-dynamic-overlay",
-        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
-        "state": {
-          "branch": null,
-          "revision": "62041e6016a30f56952f5d7d3f12a3fd7029e1cd",
-          "version": "0.8.3"
-        }
+  "pins" : [
+    {
+      "identity" : "foundationextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/teufelaudio/FoundationExtensions.git",
+      "state" : {
+        "revision" : "550f4fa5176783bf24dc3b82efc2edcf97ecc7f4",
+        "version" : "0.5.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-case-paths",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-case-paths",
+      "state" : {
+        "revision" : "f623901b4bcc97f59c36704f81583f169b228e51",
+        "version" : "0.13.0"
+      }
+    },
+    {
+      "identity" : "swift-custom-dump",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-custom-dump",
+      "state" : {
+        "revision" : "dd86159e25c749873f144577e5d18309bf57534f",
+        "version" : "0.8.0"
+      }
+    },
+    {
+      "identity" : "swift-snapshot-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-snapshot-testing.git",
+      "state" : {
+        "revision" : "cef5b3f6f11781dd4591bdd1dd0a3d22bd609334",
+        "version" : "1.11.0"
+      }
+    },
+    {
+      "identity" : "swiftui-navigation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swiftui-navigation.git",
+      "state" : {
+        "revision" : "270a754308f5440be52fc295242eb7031638bd15",
+        "version" : "0.6.1"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "62041e6016a30f56952f5d7d3f12a3fd7029e1cd",
+        "version" : "0.8.3"
+      }
+    }
+  ],
+  "version" : 2
 }
