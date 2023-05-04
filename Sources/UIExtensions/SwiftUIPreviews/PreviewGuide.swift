@@ -21,7 +21,7 @@ public struct PreviewGuide: ViewModifier {
     }
 
     public func body(content: Content) -> some View {
-        if #available(iOS 15.0, *), isRunningInAPreviewCanvas {
+        if #available(iOS 15.0, macOS 12, *), isRunningInAPreviewCanvas {
             content
                 .background {
                     guide()
