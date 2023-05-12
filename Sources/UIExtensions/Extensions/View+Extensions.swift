@@ -65,6 +65,82 @@ extension View {
     }
 }
 
+// MARK: - SquaredBorder
+extension View {
+    /**
+     The extension adds a squared border to a view and displays the provided `CustomText` view on each side of the border.
+     This is useful for displaying annotations or labels for the content inside the border.
+
+     To use this extension, call the `border(_:dividerColor:dividerWidth:)` method on any `View` instance.
+     Pass in a closure that returns a `CustomText` view to be displayed on each side
+
+     - Parameters:
+       - text: A closure that returns a `CustomText` view to be displayed on each side of the border.
+       - dividerColor: The color of the border. Default value is `.red`.
+       - dividerWidth: The width of the border. Default value is `0.4`.
+     */
+    public func border<CustomText: View>(
+        @ViewBuilder
+        _ text: @escaping () -> CustomText,
+        dividerColor: Color = .red,
+        dividerWidth: CGFloat = 0.4
+    ) -> some View {
+        modifier(SquaredBorderTextViewModifier(
+            text,
+            dividerColor: dividerColor,
+            dividerWidth: dividerWidth)
+        )
+    }
+}
+
+private struct SquaredBorderTextViewModifier<CustomText: View>: ViewModifier {
+    @State
+    private var contentSize: CGSize = .zero
+    @State
+    private var textSize: CGSize = .zero
+    @ViewBuilder
+    private let text: () -> CustomText
+    private let dividerColor: Color
+    private let dividerWidth: CGFloat
+
+    init(
+        @ViewBuilder _ text: @escaping () -> CustomText,
+        dividerColor: Color,
+        dividerWidth: CGFloat
+    ) {
+        self.text = text
+        self.dividerColor = dividerColor
+        self.dividerWidth = dividerWidth
+    }
+
+    func body(content: Content) -> some View {
+        HStack(spacing: .zero) {
+            text()
+                .frame(width: contentSize.height)
+                .rotationEffect(.degrees(270))
+                .frame(width: textSize.height, height: contentSize.height)
+            VStack(spacing: .zero) {
+                text()
+                    .measureView { textSize = $0 }
+                    .frame(width: contentSize.width)
+                content
+                    .measureView { contentSize = $0 }
+                    .padding(dividerWidth)
+                    .border(dividerColor, width: dividerWidth)
+                text()
+                    .frame(width: contentSize.width)
+                    .rotationEffect(.degrees(180))
+            }
+            text()
+                .frame(width: contentSize.height)
+                .rotationEffect(.degrees(90))
+                .frame(width: textSize.height, height: contentSize.height)
+        }
+        .padding(dividerWidth)
+        .border(dividerColor, width: dividerWidth)
+    }
+}
+
 // MARK: - Navigation
 extension View {
     @available(iOS, introduced: 15)
