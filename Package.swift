@@ -35,6 +35,7 @@ let package = Package(
             name: "SnapshotTestingExtensions",
             dependencies: [
                 .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+                "UIExtensions"
             ]
         ),
         .testTarget(name: "UIExtensionsTests",
