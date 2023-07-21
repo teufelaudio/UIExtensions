@@ -30,7 +30,8 @@ open class SnapshotTestBase: XCTestCase {
         imageDiffPrecision: Float = 1.0,
         file: StaticString = #file,
         testName: String = #function,
-        line: UInt = #line
+        line: UInt = #line,
+        wait: TimeInterval = 0.0
     ) {
         (devices ?? defaultDevices).forEach { config in
             style.forEach { uiStyle in
@@ -51,7 +52,7 @@ open class SnapshotTestBase: XCTestCase {
 
                 assertSnapshot(
                     matching: vc,
-                    as: .image(on: config.device, precision: imageDiffPrecision),
+                    as: .wait(for: wait, on: .image(on: config.device, precision: imageDiffPrecision)),
                     file: file,
                     testName: "\(testName)-\(config.name)\(suffix)",
                     line: line
