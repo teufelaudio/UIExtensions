@@ -37,7 +37,10 @@ open class SnapshotTestBase: XCTestCase {
                 view,
                 as: .image(on: config.device, precision: imageDiffPrecision),
                 style: style,
-                config: config
+                config: config,
+                file: file,
+                testName: testName,
+                line: line
             )
         }
     }
@@ -57,7 +60,10 @@ open class SnapshotTestBase: XCTestCase {
                 view,
                 as: .wait(for: wait, on: .image(on: config.device, precision: imageDiffPrecision)),
                 style: style,
-                config: config
+                config: config,
+                file: file,
+                testName: testName,
+                line: line
             )
         }
     }
@@ -67,9 +73,9 @@ open class SnapshotTestBase: XCTestCase {
         as snapshotting: Snapshotting<UIViewController, UIImage>,
         style:  [UIUserInterfaceStyle] = [.unspecified],
         config:  (name: String, device: ViewImageConfig),
-        file: StaticString = #file,
-        testName: String = #function,
-        line: UInt = #line
+        file: StaticString,
+        testName: String,
+        line: UInt
     ) {
         style.forEach { uiStyle in
             let vc = UIHostingController(rootView: view)
