@@ -61,6 +61,10 @@ open class SnapshotTestBase: XCTestCase {
                 as: .wait(for: wait, on: .image(on: config.device, precision: imageDiffPrecision)),
                 style: style,
                 config: config,
+                preAssertionInterceptor: { vc in
+                    // called to trigger rendering e.g. for AsyncImage
+                    vc.viewDidAppear(false)
+                },
                 file: file,
                 testName: testName,
                 line: line
@@ -73,6 +77,7 @@ open class SnapshotTestBase: XCTestCase {
         as snapshotting: Snapshotting<UIViewController, UIImage>,
         style:  [UIUserInterfaceStyle] = [.unspecified],
         config:  (name: String, device: ViewImageConfig),
+        preAssertionInterceptor: ((UIViewController) -> Void)? = nil,
         file: StaticString,
         testName: String,
         line: UInt
@@ -81,8 +86,7 @@ open class SnapshotTestBase: XCTestCase {
             let vc = UIHostingController(rootView: view)
             vc.overrideUserInterfaceStyle = uiStyle
             
-            // called to trigger rendering e.g. for AsyncImage 
-            vc.viewDidAppear(false)
+            preAssertionInterceptor?(vc)
             
             let suffix: String
             switch uiStyle {
