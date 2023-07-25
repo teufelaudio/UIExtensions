@@ -28,7 +28,6 @@ open class SnapshotTestBase: XCTestCase {
         devices: [(name: String, device: ViewImageConfig)]? = nil,
         style:  [UIUserInterfaceStyle] = [.unspecified],
         imageDiffPrecision: Float = 1.0,
-        shouldRecord: Bool = false,
         file: StaticString = #file,
         testName: String = #function,
         line: UInt = #line
@@ -39,7 +38,6 @@ open class SnapshotTestBase: XCTestCase {
                 as: .image(on: config.device, precision: imageDiffPrecision),
                 style: style,
                 config: config,
-                record: shouldRecord,
                 file: file,
                 testName: testName,
                 line: line
@@ -52,7 +50,6 @@ open class SnapshotTestBase: XCTestCase {
         devices: [(name: String, device: ViewImageConfig)]? = nil,
         style:  [UIUserInterfaceStyle] = [.unspecified],
         imageDiffPrecision: Float = 1.0,
-        shouldRecord: Bool = false,
         file: StaticString = #file,
         testName: String = #function,
         line: UInt = #line,
@@ -64,7 +61,6 @@ open class SnapshotTestBase: XCTestCase {
                 as: .wait(for: wait, on: .image(on: config.device, precision: imageDiffPrecision)),
                 style: style,
                 config: config,
-                record: shouldRecord,
                 file: file,
                 testName: testName,
                 line: line
@@ -77,7 +73,6 @@ open class SnapshotTestBase: XCTestCase {
         as snapshotting: Snapshotting<UIViewController, UIImage>,
         style:  [UIUserInterfaceStyle] = [.unspecified],
         config:  (name: String, device: ViewImageConfig),
-        record: Bool,
         file: StaticString,
         testName: String,
         line: UInt
@@ -104,7 +99,6 @@ open class SnapshotTestBase: XCTestCase {
             assertSnapshot(
                 matching: vc,
                 as: snapshotting,
-                record: record,
                 file: file,
                 testName: "\(testName)-\(config.name)\(suffix)",
                 line: line
