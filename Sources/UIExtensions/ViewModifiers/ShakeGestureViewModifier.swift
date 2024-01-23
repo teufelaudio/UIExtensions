@@ -2,6 +2,7 @@
 
 import SwiftUI
 
+#if os(iOS)
 struct ShakeGestureViewModifier: ViewModifier {
   let action: () -> Void
   
@@ -17,3 +18,4 @@ extension View {
     self.modifier(ShakeGestureViewModifier(action: action))
   }
 }
+#endif

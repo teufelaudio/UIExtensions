@@ -1,6 +1,6 @@
 // Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
-#if DEBUG && canImport(SwiftUI)
+#if DEBUG && canImport(SwiftUI) && canImport(UIKit)
 import SwiftUI
 import UIExtensions
 
