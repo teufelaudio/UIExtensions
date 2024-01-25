@@ -21,7 +21,7 @@ public struct PageControlDotsView: View {
 
     public var body: some View {
         HStack {
-            ForEach(0..<numberOfPages) { page in
+            ForEach(0..<numberOfPages, id: \.self) { page in
                 Circle()
                     .fill(currentPage == page ? currentPageIndicatorTintColor : pageIndicatorTintColor)
                     .animation(.easeInOut(duration: 0.1))
