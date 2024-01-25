@@ -2,7 +2,7 @@
 
 import Foundation
 
-public enum AnimationAnchor {
+public enum AnimationAnchor: Sendable {
     case top
     case left
     case center
