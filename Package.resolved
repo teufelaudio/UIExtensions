@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/teufelaudio/FoundationExtensions.git",
       "state" : {
-        "revision" : "6b9bd39109a1634112c325aa2e4a6a63d58a6254",
-        "version" : "0.5.1"
+        "revision" : "c441f8fa10ee6c93ce4d4d3939a8bd683987e48f",
+        "version" : "0.6.2"
       }
     },
     {
