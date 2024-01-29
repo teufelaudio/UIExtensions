@@ -56,6 +56,7 @@ where DataCollection.Element: Identifiable, DataCollection: Equatable {
 
         pageViewController.dataSource = context.coordinator.pageDataSource
         pageViewController.delegate = context.coordinator.pageDataSource
+        pageViewController.view.backgroundColor = .clear
 
         context.coordinator.items = receivedItems
 
@@ -227,6 +228,7 @@ private class IdentifiableHostingController<ID: Hashable, Content: View>: UIHost
     init(id: ID, content: Content) {
         self.id = id
         super.init(rootView: content)
+        self.view.backgroundColor = .clear
     }
 
     @objc dynamic required init?(coder aDecoder: NSCoder) {
