@@ -1,7 +1,7 @@
 // Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
+#if canImport(SwiftUI) && canImport(UIKit)
 import SwiftUI
-
 struct ShakeGestureViewModifier: ViewModifier {
   let action: () -> Void
   
@@ -17,3 +17,4 @@ extension View {
     self.modifier(ShakeGestureViewModifier(action: action))
   }
 }
+#endif

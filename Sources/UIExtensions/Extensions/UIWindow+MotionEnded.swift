@@ -1,5 +1,6 @@
 // Copyright © 2023 Lautsprecher Teufel GmbH. All rights reserved.
 
+#if canImport(UIKit)
 import UIKit
 
 extension NSNotification.Name {
@@ -17,3 +18,4 @@ extension UIWindow {
         }
     }
 }
+#endif
