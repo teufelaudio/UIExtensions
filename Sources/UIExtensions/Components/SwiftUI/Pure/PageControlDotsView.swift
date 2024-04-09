@@ -34,7 +34,8 @@ public struct PageControlDotsView: View {
                     }
             }
         }
-        .padding(.vertical, 10)
+        .padding(.top, 10)
+        .padding(.bottom, 24)
     }
 }
 
