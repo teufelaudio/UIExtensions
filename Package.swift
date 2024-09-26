@@ -12,7 +12,7 @@ let package = Package(
 
     ],
     dependencies: [
-        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", from: "0.5.0"),
+        .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", from: "1.0.0"),
         .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.11.0"),
     ],
     targets: [
