@@ -116,6 +116,7 @@ extension PageView {
     /// is called once the view struct is recreated. It is responsible for updating the `UIPageViewController`
     /// of the new configuration, the `PageView` also needs to update this `PageViewCoordinator` in
     /// based on the current configuration of the NEWLY CREATED `PageView`.
+    @MainActor
     public final class PageViewCoordinator {
         fileprivate var parent: PageView
 
@@ -222,7 +223,7 @@ private final class PageControllerDataSource: NSObject, UIPageViewControllerData
     }
 }
 
-private class IdentifiableHostingController<ID: Hashable, Content: View>: UIHostingController<Content>, Identifiable {
+private class IdentifiableHostingController<ID: Hashable, Content: View>: UIHostingController<Content> {
     var id: ID
 
     init(id: ID, content: Content) {
