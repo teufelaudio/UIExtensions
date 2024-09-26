@@ -22,9 +22,9 @@ extension Binding {
     ///   - onSet: Closure to execute whenever the value is changed. This closure is passed the old
     ///   value and the new value respectively before the value is changed.
     /// - Returns: Binding with same types, can be chained.
-    public func debug(onGet: ((Value) -> Void)? = nil,
-                      onSet: ((Value, Value) -> Void)? = nil)
-    -> Self {
+    public func debug(onGet: (@Sendable (Value) -> Void)? = nil,
+                      onSet: (@Sendable (Value, Value) -> Void)? = nil)
+    -> Self where Value: Sendable {
         .init {
             let currentValue = self.wrappedValue
             onGet?(currentValue)

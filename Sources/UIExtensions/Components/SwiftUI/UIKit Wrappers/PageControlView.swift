@@ -46,6 +46,7 @@ public struct PageControlView: UIViewRepresentable {
 
     /// Coordinator for this PageIndicator. Used only to update the source binding when a user taps on a
     /// page "dot" itself.
+    @MainActor
     public class Coordinator: NSObject {
         fileprivate var control: PageControlView
 

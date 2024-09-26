@@ -6,14 +6,8 @@ import SnapshotTesting
 import SwiftUI
 import XCTest
 
+@MainActor
 open class SnapshotTestBase: XCTestCase {
-    public var allowAnimations: Bool = false
-    
-    override open func setUp() {
-        super.setUp()
-        UIView.setAnimationsEnabled(allowAnimations)
-    }
-    
     open var defaultDevices: [(name: String, device: ViewImageConfig)] {
         [
             ("SE", .iPhoneSe),
@@ -22,12 +16,13 @@ open class SnapshotTestBase: XCTestCase {
             ("iPadPro", .iPadPro12_9(.portrait))
         ]
     }
-    
+
     open func assertSnapshotDevices<V: View>(
         _ view: V,
         devices: [(name: String, device: ViewImageConfig)]? = nil,
         style:  [UIUserInterfaceStyle] = [.unspecified],
         imageDiffPrecision: Float = 1.0,
+        allowAnimations: Bool = false,
         file: StaticString = #file,
         testName: String = #function,
         line: UInt = #line
@@ -38,18 +33,20 @@ open class SnapshotTestBase: XCTestCase {
                 as: .image(on: config.device, precision: imageDiffPrecision),
                 style: style,
                 config: config,
+                allowAnimations: allowAnimations,
                 file: file,
                 testName: testName,
                 line: line
             )
         }
     }
-    
+
     open func assertSnapshotDevices<V: View>(
         _ view: V,
         devices: [(name: String, device: ViewImageConfig)]? = nil,
         style:  [UIUserInterfaceStyle] = [.unspecified],
         imageDiffPrecision: Float = 1.0,
+        allowAnimations: Bool = false,
         file: StaticString = #file,
         testName: String = #function,
         line: UInt = #line,
@@ -65,19 +62,21 @@ open class SnapshotTestBase: XCTestCase {
                     // called to trigger rendering e.g. for AsyncImage
                     vc.viewDidAppear(false)
                 },
+                allowAnimations: allowAnimations,
                 file: file,
                 testName: testName,
                 line: line
             )
         }
     }
-    
+
     private func assertSnapshotDevices<V: View>(
         _ view: V,
         as snapshotting: Snapshotting<UIViewController, UIImage>,
         style:  [UIUserInterfaceStyle] = [.unspecified],
         config:  (name: String, device: ViewImageConfig),
         preAssertionInterceptor: ((UIViewController) -> Void)? = nil,
+        allowAnimations: Bool,
         file: StaticString,
         testName: String,
         line: UInt
@@ -101,7 +100,7 @@ open class SnapshotTestBase: XCTestCase {
             }
             
             assertSnapshot(
-                matching: vc,
+                of: vc,
                 as: snapshotting,
                 file: file,
                 testName: "\(testName)-\(config.name)\(suffix)",

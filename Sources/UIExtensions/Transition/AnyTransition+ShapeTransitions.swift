@@ -4,6 +4,7 @@ import Foundation
 import SwiftUI
 
 extension AnyTransition {
+    @MainActor
     public static func rectangular(anchor: AnimationAnchor) -> AnyTransition {
         AnyTransition.modifier(
             active: ShapeClipModifier(shape: RectangularShape(pct: 1, anchor: anchor)),
