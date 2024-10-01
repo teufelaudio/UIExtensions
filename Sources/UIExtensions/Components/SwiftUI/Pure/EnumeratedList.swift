@@ -11,6 +11,14 @@ struct EnumeratedList<TextView: View>: View {
     let circledNumberStrokeColor: Color
     let textView: (String) -> TextView
     
+    /// Initialises a new EnumeratedList
+    /// - Parameters:
+    ///   - items: Items to be shown on the right hand sides, next to the numbers.
+    ///   For each element the enumeration item gets incremented.
+    ///   - horizontalSpacing: The spacing between the enumeration and text.
+    ///   - verticalSpacing: The vertical spacing between elements
+    ///   - circledNumberStrokeColor: Stroke colour used around the enumerations
+    ///   - textBuilder: A view builder to modify the shown text on the right hand side for each element.
     init(items: EnumeratedSequence<[String]>,
          horizontalSpacing: CGFloat = 12,
          verticalSpacing: CGFloat = 16,
