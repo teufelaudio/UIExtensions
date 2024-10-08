@@ -4,7 +4,7 @@ import SwiftUI
 
 /// Enumerated list of Strings such as for instructions or help usage. Enumeration is
 /// shown as `CircledNumber`.
-struct EnumeratedList<TextView: View>: View {
+public struct EnumeratedList<TextView: View>: View {
     let items: EnumeratedSequence<[String]>
     let horizontalSpacing: CGFloat
     let verticalSpacing: CGFloat
@@ -19,7 +19,7 @@ struct EnumeratedList<TextView: View>: View {
     ///   - verticalSpacing: The vertical spacing between elements
     ///   - circledNumberStrokeColor: Stroke colour used around the enumerations
     ///   - textBuilder: A view builder to modify the shown text on the right hand side for each element.
-    init(items: EnumeratedSequence<[String]>,
+    public init(items: EnumeratedSequence<[String]>,
          horizontalSpacing: CGFloat = 12,
          verticalSpacing: CGFloat = 16,
          circledNumberStrokeColor: Color,
@@ -32,7 +32,7 @@ struct EnumeratedList<TextView: View>: View {
         self.textView = textBuilder
     }
     
-    var body: some View {
+    public var body: some View {
         VStack(alignment: .leading, spacing: verticalSpacing) {
             ForEach(Array(items), id: \.element) { index, item in
                 descriptionText(index: index, description: item)
