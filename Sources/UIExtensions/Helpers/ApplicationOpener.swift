@@ -4,14 +4,15 @@
 import Foundation
 import UIKit
 
-@objc
 @MainActor
 public protocol ApplicationOpener {
     nonisolated var openSettingsURL: String { get }
     nonisolated func canOpenURL(_ url: URL) -> Bool
     @available(iOSApplicationExtension, unavailable)
-    @objc(openURL:options:completionHandler:)
     func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any], completionHandler completion: (@MainActor @Sendable (Bool) -> Void)?)
+    @available(iOSApplicationExtension, unavailable)
+    @discardableResult
+    func open(_ url: URL, options: [UIApplication.OpenExternalURLOptionsKey: Any]) async -> Bool
 }
 
 @available(iOSApplicationExtension, unavailable)
