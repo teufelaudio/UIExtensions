@@ -4,13 +4,13 @@ import SwiftUI
 
 /// Enumerated list of Strings such as for instructions or help usage. Enumeration is
 /// shown as `CircledNumber`.
-public struct EnumeratedList<TextView: View>: View {
+public struct EnumeratedList<EnumerationTextView: View, DescriptionTextView: View>: View {
     let items: EnumeratedSequence<[String]>
     let horizontalSpacing: CGFloat
     let verticalSpacing: CGFloat
     let circledNumberStrokeColor: Color
-    let textView: (String) -> TextView
-    let enumerationTextView: (String) -> TextView
+    let textView: (String) -> DescriptionTextView
+    let enumerationTextView: (String) -> EnumerationTextView
     
     /// Initialises a new EnumeratedList
     /// - Parameters:
@@ -26,8 +26,9 @@ public struct EnumeratedList<TextView: View>: View {
         verticalSpacing: CGFloat = 16,
         circledNumberStrokeColor: Color,
         @ViewBuilder
-        textBuilder: @escaping (String) -> TextView,
-        enumerationTextBuilder: @escaping (String) -> TextView
+        textBuilder: @escaping (String) -> DescriptionTextView,
+        @ViewBuilder
+        enumerationTextBuilder: @escaping (String) -> EnumerationTextView
     ) {
         self.items = items
         self.horizontalSpacing = horizontalSpacing
