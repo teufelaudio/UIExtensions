@@ -10,6 +10,7 @@ public struct EnumeratedList<TextView: View>: View {
     let verticalSpacing: CGFloat
     let circledNumberStrokeColor: Color
     let textView: (String) -> TextView
+    let enumerationTextView: (String) -> TextView
     
     /// Initialises a new EnumeratedList
     /// - Parameters:
@@ -19,17 +20,21 @@ public struct EnumeratedList<TextView: View>: View {
     ///   - verticalSpacing: The vertical spacing between elements
     ///   - circledNumberStrokeColor: Stroke colour used around the enumerations
     ///   - textBuilder: A view builder to modify the shown text on the right hand side for each element.
-    public init(items: EnumeratedSequence<[String]>,
-         horizontalSpacing: CGFloat = 12,
-         verticalSpacing: CGFloat = 16,
-         circledNumberStrokeColor: Color,
-         @ViewBuilder
-         textBuilder: @escaping (String) -> TextView) {
+    public init(
+        items: EnumeratedSequence<[String]>,
+        horizontalSpacing: CGFloat = 12,
+        verticalSpacing: CGFloat = 16,
+        circledNumberStrokeColor: Color,
+        @ViewBuilder
+        textBuilder: @escaping (String) -> TextView,
+        enumerationTextBuilder: @escaping (String) -> TextView
+    ) {
         self.items = items
         self.horizontalSpacing = horizontalSpacing
         self.verticalSpacing = verticalSpacing
         self.circledNumberStrokeColor = circledNumberStrokeColor
         self.textView = textBuilder
+        self.enumerationTextView = enumerationTextBuilder
     }
     
     public var body: some View {
@@ -46,7 +51,7 @@ public struct EnumeratedList<TextView: View>: View {
                 number: index + 1,
                 length: 24,
                 strokeContent: circledNumberStrokeColor,
-                content: { Text("\($0)") })
+                content: {  enumerationTextView("\($0)") })
             textView(description)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
@@ -67,9 +72,9 @@ public struct EnumeratedList<TextView: View>: View {
             "Optional: sprinkle with emojis, but use sparingly (:sparkles: for feature additions, :bug: for bug fixes)",
             "Thanks ChatGPT"
         ].enumerated(),
-        circledNumberStrokeColor: Color.black
-    ) { text in
-        Text(text)
-    }
+        circledNumberStrokeColor: Color.black,
+        textBuilder: { Text($0) },
+        enumerationTextBuilder: { Text($0) }
+    )
 }
 #endif
