@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "83EB7264-C56B-486F-B19F-C24FF4DA2529",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "UIExtensionsTests",
+        "name" : "UIExtensionsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
