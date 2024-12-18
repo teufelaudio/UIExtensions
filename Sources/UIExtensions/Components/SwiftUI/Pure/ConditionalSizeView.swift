@@ -38,7 +38,9 @@ public struct ConditionalSizeView<Content: View>: View {
                 }
             )
             .onPreferenceChange(SizeKey.self) { size in
-                self.availableSize = size
+                Task { @MainActor in
+                    self.availableSize = size
+                }
             }
     }
 
