@@ -2,11 +2,12 @@
 
 #if canImport(UIKit) && canImport(XCTest)
 @testable import UIExtensions
-import SnapshotTestingExtensions
+import SnapshotTesting
 import SwiftUI
 import XCTest
 
-final class ViewMeasureViewTests: SnapshotTestBase {
+@MainActor
+final class ViewMeasureViewTests: XCTestCase {
 
     struct MeasureMeView: View {
         @State var view1Height: CGFloat = 0
@@ -60,7 +61,8 @@ final class ViewMeasureViewTests: SnapshotTestBase {
 
     func testMeasureView() {
         let view = MeasureMeView()
-        assertSnapshotDevices(view.environment(\.disableAnimations, true), devices: [("SE", .iPhoneSe)], style: [.light])
+        let hostingController = UIHostingController(rootView: view.environment(\.disableAnimations, true))
+        assertSnapshot(of: hostingController, as: .image(on: .iPhoneSe))
     }
 }
 #endif

@@ -8,12 +8,11 @@ let package = Package(
     products: [
         .library(name: "UIExtensions", targets: ["UIExtensions"]),
         .library(name: "UIExtensionsDynamic", type: .dynamic, targets: ["UIExtensionsDynamic"]),
-        .library(name: "SnapshotTestingExtensions", targets: ["SnapshotTestingExtensions"]),
 
     ],
     dependencies: [
         .package(url: "https://github.com/teufelaudio/FoundationExtensions.git", from: "1.0.0"),
-        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.11.0"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing.git", from: "1.17.6")
     ],
     targets: [
         .target(
@@ -28,18 +27,12 @@ let package = Package(
                 .product(name: "FoundationExtensionsDynamic", package: "FoundationExtensions"),
             ]
         ),
-        .target(
-            name: "SnapshotTestingExtensions",
+        .testTarget(
+            name: "UIExtensionsTests",
             dependencies: [
-                .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
-                "UIExtensions"
+                "UIExtensions",
+                .product(name: "SnapshotTesting", package: "swift-snapshot-testing")
             ]
         ),
-        .testTarget(name: "UIExtensionsTests",
-                    dependencies: [
-                        "SnapshotTestingExtensions",
-                        "UIExtensions",
-                    ]
-                   ),
     ]
 )
