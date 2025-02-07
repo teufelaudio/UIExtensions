@@ -23,11 +23,9 @@ open class SnapshotTestBase: XCTestCase {
         style:  [UIUserInterfaceStyle] = [.unspecified],
         imageDiffPrecision: Float = 1.0,
         allowAnimations: Bool = false,
-        fileID: StaticString = #fileID,
         file: StaticString = #file,
         testName: String = #function,
-        line: UInt = #line,
-        column: UInt = #column
+        line: UInt = #line
     ) {
         (devices ?? defaultDevices).forEach { config in
             assertSnapshotDevices(
@@ -36,11 +34,9 @@ open class SnapshotTestBase: XCTestCase {
                 style: style,
                 config: config,
                 allowAnimations: allowAnimations,
-                fileID: fileID,
                 file: file,
                 testName: testName,
-                line: line,
-                column: column
+                line: line
             )
         }
     }
@@ -51,11 +47,9 @@ open class SnapshotTestBase: XCTestCase {
         style:  [UIUserInterfaceStyle] = [.unspecified],
         imageDiffPrecision: Float = 1.0,
         allowAnimations: Bool = false,
-        fileID: StaticString = #fileID,
         file: StaticString = #file,
         testName: String = #function,
         line: UInt = #line,
-        column: UInt = #column,
         wait: TimeInterval
     ) {
         (devices ?? defaultDevices).forEach { config in
@@ -69,11 +63,9 @@ open class SnapshotTestBase: XCTestCase {
                     vc.viewDidAppear(false)
                 },
                 allowAnimations: allowAnimations,
-                fileID: fileID,
                 file: file,
                 testName: testName,
-                line: line,
-                column: column
+                line: line
             )
         }
     }
@@ -85,11 +77,9 @@ open class SnapshotTestBase: XCTestCase {
         config:  (name: String, device: ViewImageConfig),
         preAssertionInterceptor: ((UIViewController) -> Void)? = nil,
         allowAnimations: Bool,
-        fileID: StaticString,
         file: StaticString,
         testName: String,
-        line: UInt,
-        column: UInt
+        line: UInt
     ) {
         style.forEach { uiStyle in
             let vc = UIHostingController(rootView: view)
@@ -112,11 +102,9 @@ open class SnapshotTestBase: XCTestCase {
             assertSnapshot(
                 of: vc,
                 as: snapshotting,
-                fileID: fileID,
                 file: file,
                 testName: "\(testName)-\(config.name)\(suffix)",
-                line: line,
-                column: column
+                line: line
             )
         }
     }
