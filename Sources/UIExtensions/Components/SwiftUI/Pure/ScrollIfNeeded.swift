@@ -2,6 +2,7 @@
 
 import SwiftUI
 
+@available(*, deprecated, message: "ScrollIfNeeded is about to be removed entirely, please use ScrollView and .scrollBounceBehavior(.basedOnSize) instead.")
 @available(iOS 16.4, *)
 /// A view that embeds content in a scroll view if content overflows.
 public struct ScrollIfNeeded<Content: View>: View {
