@@ -4,3 +4,5 @@
 /*.xcodeproj
 xcuserdata/
 /.swiftpm/xcode
+#Ignore the Package.resolved file as it is resolved in used workspace
+Package.resolved
