@@ -53,6 +53,8 @@ public struct EnumeratedList<EnumerationTextView: View, DescriptionTextView: Vie
                 length: 24,
                 strokeContent: circledNumberStrokeColor,
                 content: {  enumerationTextView("\($0)") })
+            .padding(.leading, 1)
+            
             textView(description)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
