@@ -4,6 +4,7 @@ import Foundation
 import SwiftUI
 
 extension Spacer {
+    @MainActor
     public static func between(_ range: ClosedRange<CGFloat>,
                                ideal: CGFloat? = nil,
                                limitVertically: Bool = true,
@@ -17,14 +18,17 @@ extension Spacer {
             )
     }
 
+    @MainActor
     public static func exactWidth(_ value: CGFloat) -> some View {
         Spacer(minLength: value).frame(width: value, height: 1)
     }
 
+    @MainActor
     public static func exactHeight(_ value: CGFloat) -> some View {
         Spacer(minLength: value).frame(width: 1, height: value)
     }
 
+    @MainActor
     public static func multiple(_ multipler: Int, minLength: CGFloat? = nil) -> some View {
         MultipleSpacer(multiplier: multipler, minLength: minLength)
     }
