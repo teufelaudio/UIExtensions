@@ -18,7 +18,11 @@ public struct CircledNumber<Content: View, S: ShapeStyle>: View {
         content
             .frame(width: length, height: length, alignment: .center)
             .background(
-                Circle().strokeBorder(style: .init(lineWidth: 1)),
+                Circle()
+                    .strokeBorder(
+                        strokeContent,
+                        style: .init(lineWidth: 1)
+                    ),
                 alignment: .center
             )
             .background(Circle().fill(backgroundColor))
