@@ -58,6 +58,7 @@ public struct EnumeratedList<EnumerationTextView: View, DescriptionTextView: Vie
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
         }
+        .accessibilityElement(children: .combine)
     }
 }
 
