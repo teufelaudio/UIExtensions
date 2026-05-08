@@ -9,6 +9,7 @@ public struct EnumeratedList<EnumerationTextView: View, DescriptionTextView: Vie
     let horizontalSpacing: CGFloat
     let verticalSpacing: CGFloat
     let circledNumberStrokeColor: Color
+    let itemsCountAccessibilityLabel: String
     let textView: (String) -> DescriptionTextView
     let enumerationTextView: (String) -> EnumerationTextView
     
@@ -19,12 +20,14 @@ public struct EnumeratedList<EnumerationTextView: View, DescriptionTextView: Vie
     ///   - horizontalSpacing: The spacing between the enumeration and text.
     ///   - verticalSpacing: The vertical spacing between elements
     ///   - circledNumberStrokeColor: Stroke colour used around the enumerations
+    ///   - itemsCountAccessibilityLabel: An accessibility label to indicate how many items are present and which is the current one
     ///   - textBuilder: A view builder to modify the shown text on the right hand side for each element.
     public init(
         items: EnumeratedSequence<[String]>,
         horizontalSpacing: CGFloat = 12,
         verticalSpacing: CGFloat = 16,
         circledNumberStrokeColor: Color,
+        itemsCountAccessibilityLabel: String,
         @ViewBuilder
         textBuilder: @escaping (String) -> DescriptionTextView,
         @ViewBuilder
@@ -34,6 +37,7 @@ public struct EnumeratedList<EnumerationTextView: View, DescriptionTextView: Vie
         self.horizontalSpacing = horizontalSpacing
         self.verticalSpacing = verticalSpacing
         self.circledNumberStrokeColor = circledNumberStrokeColor
+        self.itemsCountAccessibilityLabel = itemsCountAccessibilityLabel
         self.textView = textBuilder
         self.enumerationTextView = enumerationTextBuilder
     }
@@ -58,7 +62,9 @@ public struct EnumeratedList<EnumerationTextView: View, DescriptionTextView: Vie
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
         }
-        .accessibilityElement(children: .combine)
+        .accessibilityRepresentation {
+            Text("\(itemsCountAccessibilityLabel), \(description)")
+        }
     }
 }
 
@@ -76,6 +82,7 @@ public struct EnumeratedList<EnumerationTextView: View, DescriptionTextView: Vie
             "Thanks ChatGPT"
         ].enumerated(),
         circledNumberStrokeColor: Color.black,
+        itemsCountAccessibilityLabel: "Step %1$@ of  %2$@",
         textBuilder: { Text($0) },
         enumerationTextBuilder: { Text($0) }
     )
