@@ -2,47 +2,57 @@
 
 import SwiftUI
 
-/// A vertical container that lays out enumerated rows, similar to SwiftUI's `List`.
+/// A vertical container that enumerates a collection of items into rows,
+/// similar to SwiftUI's `List(_:rowContent:)`.
 ///
-/// `EnumeratedList` only owns the vertical layout: rows are injected by the
-/// caller via the `content` view builder. Pair it with ``EnumeratedListRow``
-/// (or any other view) to compose each row. Because rows are provided from the
-/// outside, accessibility, gesture, or any other view modifiers can be applied
-/// directly at the call site where the caller has full context (index, total
-/// count, localised labels, etc.).
+/// `EnumeratedList` iterates the provided data and hands each `(index, element)`
+/// pair to the caller's row builder. Rows are produced from the outside, so
+/// accessibility, gesture, or any other view modifiers can be applied directly
+/// at the call site where the caller has full context (index, total count,
+/// localised labels, etc.). Pair it with ``EnumeratedListRow`` to render the
+/// circled-number + description layout, or return any view of your choice.
 ///
 /// ```swift
-/// EnumeratedList {
-///     ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-///         EnumeratedListRow(number: index + 1, circledNumberStrokeColor: .black) {
-///             Text(item)
-///         }
-///         .accessibilityRepresentation {
-///             Text("Step \(index + 1) of \(items.count), \(item)")
-///         }
+/// EnumeratedList(items) { index, item in
+///     EnumeratedListRow(
+///         number: index + 1,
+///         circledNumberStrokeColor: .black,
+///         enumerationContent: { Text("\($0)") }
+///     ) {
+///         Text(item)
+///     }
+///     .accessibilityRepresentation {
+///         Text("Step \(index + 1) of \(items.count), \(item)")
 ///     }
 /// }
 /// ```
-public struct EnumeratedList<Content: View>: View {
+public struct EnumeratedList<Data: RandomAccessCollection, RowContent: View>: View {
+    private let data: Data
     private let verticalSpacing: CGFloat
-    private let content: Content
+    private let rowContent: (Int, Data.Element) -> RowContent
 
     /// Initialises a new EnumeratedList.
     /// - Parameters:
+    ///   - data: The collection of items to enumerate.
     ///   - verticalSpacing: The vertical spacing between rows.
-    ///   - content: A view builder that produces the rows of the list. Use
-    ///     ``EnumeratedListRow`` (or any other view) to compose each row.
+    ///   - rowContent: A view builder that receives the zero-based index and
+    ///     the element, and produces the row view. Use ``EnumeratedListRow``
+    ///     (or any other view) to compose each row.
     public init(
+        _ data: Data,
         verticalSpacing: CGFloat = 16,
-        @ViewBuilder content: () -> Content
+        @ViewBuilder rowContent: @escaping (Int, Data.Element) -> RowContent
     ) {
+        self.data = data
         self.verticalSpacing = verticalSpacing
-        self.content = content()
+        self.rowContent = rowContent
     }
 
     public var body: some View {
         VStack(alignment: .leading, spacing: verticalSpacing) {
-            content
+            ForEach(Array(data.enumerated()), id: \.offset) { index, element in
+                rowContent(index, element)
+            }
         }
     }
 }
@@ -112,17 +122,16 @@ public struct EnumeratedListRow<EnumerationContent: View, Description: View>: Vi
         "Optional: sprinkle with emojis, but use sparingly",
         "Thanks ChatGPT"
     ]
-    return EnumeratedList {
-        ForEach(Array(items.enumerated()), id: \.offset) { index, item in
-            EnumeratedListRow(
-                number: index + 1,
-                circledNumberStrokeColor: .black
-            ) {
-                Text(item)
-            }
-            .accessibilityRepresentation {
-                Text("Step \(index + 1) of \(items.count), \(item)")
-            }
+    EnumeratedList(items) { index, item in
+        EnumeratedListRow(
+            number: index + 1,
+            circledNumberStrokeColor: .black,
+            enumerationContent: { Text("\($0)") }
+        ) {
+            Text(item)
+        }
+        .accessibilityRepresentation {
+            Text("Step \(index + 1) of \(items.count), \(item)")
         }
     }
 }
