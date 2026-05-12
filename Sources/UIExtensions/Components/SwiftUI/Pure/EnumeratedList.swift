@@ -130,9 +130,6 @@ public struct EnumeratedListRow<EnumerationContent: View, Description: View>: Vi
         ) {
             Text(item)
         }
-        .accessibilityRepresentation {
-            Text("Step \(index + 1) of \(items.count), \(item)")
-        }
     }
 }
 #endif
